@@ -7,3 +7,5 @@ UX-REPORT.md
 UX-REQUESTS.md
 
 .DS_Store
+.vercel
+.env*.local
