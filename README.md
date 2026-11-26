@@ -20,7 +20,8 @@ Then visit <http://localhost:8000>.
 
 | File | Purpose |
 |---|---|
-| `index.html` | All guide content and page structure |
+| `index.html` | All guide content, page structure, and Open Graph / Twitter card metadata |
+| `og-image.png` | 1200×630 preview image shown when the link is shared in WhatsApp, Slack, and social apps |
 | `styles.css` | Design tokens, layout, responsive rules, print styles |
 | `app.js` | Theme toggle, contents navigation, search filter, copy buttons |
 
@@ -59,3 +60,5 @@ Content lives in `index.html`. Each major section has an `id`; the contents navi
 ## Deploying
 
 Upload the directory to any static host, or connect it to a host that serves `index.html` from the repository root.
+
+For link previews, keep the absolute `og:image` and `twitter:image` URLs in `index.html` pointing at the deployed `og-image.png`. WhatsApp and most social apps read these tags when the URL is shared.
