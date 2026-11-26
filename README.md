@@ -24,14 +24,23 @@ Then visit <http://localhost:8000>.
 | `styles.css` | Design tokens, layout, responsive rules, print styles |
 | `app.js` | Theme toggle, contents navigation, search filter, copy buttons |
 
+## How the guide is organised
+
+The content is split into four chapters: foundations (23 habits), a dashboard playbook (16 rules and 5 war stories), a filterable prompt library (10 prompts), and a working loop with checklists and a one-screen cheat sheet. Long sections are accordions, so the page scans as a table of contents before you open anything.
+
 ## Features
 
-- Sticky contents navigation with active-section highlighting
-- Light and dark themes, remembered in local storage
-- Search that filters the contents list
-- Copy buttons on every prompt block
-- Responsive down to small phones, keyboard focus states, reduced-motion support
-- Clean print stylesheet
+- Full-text search across every habit, rule, story, and template; matching sections open automatically
+- Category filters for the prompt library
+- Expand-all and collapse-all controls
+- Interactive checklists saved in local storage, with a reset control
+- Reading progress, active-section highlighting, and a back-to-top button
+- Light and dark themes that respect the system preference on first visit, then remember your choice
+- Copy buttons on every prompt, with screen-reader announcements
+- Keyboard support: `/` focuses search, `Escape` clears it, `n` and `p` move between collapsed sections, and all accordions are native `<details>` elements
+- Responsive down to small phones, with a toggleable contents panel
+- Reduced-motion support, visible focus states, and a print stylesheet that opens every section
+- Lighthouse scores of 100 for accessibility, best practices, and SEO in both themes
 
 ## Customising it
 
