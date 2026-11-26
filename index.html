@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompting an Agent to Build Great Software — A Dashboard Field Manual</title>
+<meta name="description" content="A beginner-friendly field manual for directing an AI coding agent, with a practical focus on building dashboards.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="#top">
+      <span class="brand__mark" aria-hidden="true">⌘</span>
+      <span class="brand__text">The Agent's Field Manual</span>
+    </a>
+    <div class="topbar__actions">
+      <span class="topbar__hint">Dashboard edition</span>
+      <button id="themeToggle" class="iconbtn" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <span id="themeIcon" aria-hidden="true">◐</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="shell" id="top">
+
+  <aside class="sidebar" aria-label="Contents">
+    <div class="sidebar__inner">
+      <label class="search" for="navSearch">
+        <span class="search__icon" aria-hidden="true">⌕</span>
+        <input id="navSearch" type="search" placeholder="Find a topic" autocomplete="off" aria-label="Filter contents">
+      </label>
+
+      <nav id="nav">
+        <p class="nav__group">Begin here</p>
+        <a href="#intro">The one rule</a>
+        <a href="#start">The five-slot prompt</a>
+
+        <p class="nav__group">Habits</p>
+        <a href="#memory">Give the agent memory</a>
+        <a href="#plan">Plan before you build</a>
+        <a href="#direct">Direct like a designer</a>
+        <a href="#quality">Make quality non-negotiable</a>
+        <a href="#rules">Write the rules down</a>
+
+        <p class="nav__group">Dashboards</p>
+        <a href="#dashboard">Anatomy of a dashboard</a>
+        <a href="#model">Data model</a>
+        <a href="#states">Five states</a>
+        <a href="#publish">Save vs Publish</a>
+        <a href="#metric">Metrics and tokens</a>
+        <a href="#verifydash">Verification and roles</a>
+        <a href="#stories">War stories</a>
+
+        <p class="nav__group">Take away</p>
+        <a href="#templates">Copy-paste prompts</a>
+        <a href="#loop">The working loop</a>
+        <a href="#summary">The short version</a>
+      </nav>
+
+      <p class="sidebar__foot">A static guide. No tracking, no account, no build step.</p>
+    </div>
+  </aside>
+
+  <main id="main" class="content">
+
+    <section class="cover" aria-labelledby="pageTitle">
+      <p class="cover__kicker">A field manual for builders</p>
+      <h1 id="pageTitle">Prompting an Agent to Build Great Software</h1>
+      <p class="cover__lede">You are the director. The agent is the builder. Your job is to make the target unmistakable, then inspect the result.</p>
+      <p class="cover__note">Twenty-three habits and a dashboard playbook, written for someone starting from zero.</p>
+    </section>
+
+    <section id="intro" class="section">
+      <h2>The one rule</h2>
+      <p>An agent is fast, literal, and has no taste of its own yet. It will produce exactly what you asked for — not what you meant. Prompting is the practice of closing that gap.</p>
+      <div class="pullquote">
+        <p>Never say “build me a dashboard” and walk away.</p>
+      </div>
+      <p>The methods here come from a long, messy, real build: an admin dashboard with content lists, file uploads, publishing, themes, and a public site that had to stay working. Some prompts produced excellent work. Some produced results that had to be thrown away. Both are useful.</p>
+    </section>
+
+    <section id="start" class="section">
+      <h2>The five-slot prompt</h2>
+      <p>Every useful instruction to an agent fills five slots. If one is missing, the agent fills it with a guess.</p>
+
+      <div class="slots">
+        <div class="slot"><span class="slot__n">01</span><div><strong>Goal</strong><p>What exactly should exist when you are done?</p></div></div>
+        <div class="slot"><span class="slot__n">02</span><div><strong>Context</strong><p>Where does it live, what exists already, what data does it use?</p></div></div>
+        <div class="slot"><span class="slot__n">03</span><div><strong>Constraints</strong><p>What must not break? What are the limits?</p></div></div>
+        <div class="slot"><span class="slot__n">04</span><div><strong>Check</strong><p>How will you know it works?</p></div></div>
+        <div class="slot"><span class="slot__n">05</span><div><strong>Delivery</strong><p>Show me, commit, or deploy — say which.</p></div></div>
+      </div>
+
+      <div class="code">
+        <button class="copy" type="button" aria-label="Copy prompt template">Copy</button>
+        <pre><code>Goal: &lt;one sentence — the finished thing&gt;
+Context: &lt;files, data, existing patterns to follow&gt;
+Constraints: &lt;what not to change, performance, no new deps&gt;
+Check: &lt;what to test and what result to report&gt;
+Delivery: &lt;show me / commit / deploy — say which&gt;</code></pre>
+      </div>
+    </section>
+
+    <section id="habits" class="section section--chapter">
+      <p class="chapter__label">Part one</p>
+      <h2>Twenty-three habits</h2>
+      <p>Read these once, then come back to the ones you need.</p>
+    </section>
+
+    <section id="memory" class="section">
+      <h3>Give the agent a memory</h3>
+
+      <article class="tip">
+        <h4><span class="tip__n">01</span> Write the handoff document before you need it</h4>
+        <p>At the start of a build, ask for two documents: a README for humans and a short <code>CONTEXT.md</code> for the next agent. When a conversation gets long, ask for it to be compressed and for both documents to be updated.</p>
+        <div class="code">
+          <button class="copy" type="button" aria-label="Copy prompt">Copy</button>
+          <pre><code>Compress this conversation without losing nuance. Update the README
+for a human reader and CONTEXT.md for the next agent, so a fresh
+session can start with perfect context.</code></pre>
+        </div>
+        <p class="why"><strong>Why it works.</strong> An agent starts every session with an empty memory. One short file describing what the project is, where the data lives, what was tried, and what the rules are is the difference between starting from zero and starting from yesterday.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">02</span> Ask a question before asking for a change</h4>
+        <p>You can ask for options without authorising any code. End the prompt with: “Don't change anything yet — I'm asking.” This is the cheapest way to explore an idea.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">03</span> Say “wait for my approval” when you want control</h4>
+        <p>Without that sentence, an agent keeps editing while you are still thinking. With it, you get a proposal you can accept in one word. When you want speed, say “top fix only, no monologue, wait for approval.”</p>
+      </article>
+    </section>
+
+    <section id="plan" class="section">
+      <h3>Plan before you build</h3>
+
+      <article class="tip">
+        <h4><span class="tip__n">04</span> The “deeper, not bigger” prompt</h4>
+        <p>This is the highest-leverage instruction in the whole manual. Use it whenever a result feels generic or safe.</p>
+        <div class="code">
+          <button class="copy" type="button" aria-label="Copy deeper prompt">Copy</button>
+          <pre><code>I want a deeper version of this task, not a bigger one. Before
+revising: (1) what would a top professional in this field do here
+that I'm not asking for? (2) what's the rawest material they would
+start from? (3) what specific methods and tools would they use?
+(4) what — other than you or me — would prove the result is right?
+Then revise with my feedback.</code></pre>
+        </div>
+        <p class="why"><strong>Why it works.</strong> It stops the agent adding features and forces it to raise the level of thinking. Depth is doing the same job properly. Size is adding more jobs.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">05</span> Collect the corrections first, then make the plan</h4>
+        <p>When you have several complaints, say: “Write down everything I said, make a blueprint, wait.” Do not let the agent fix item one while you are still describing item six.</p>
+        <div class="code">
+          <button class="copy" type="button" aria-label="Copy corrections prompt">Copy</button>
+          <pre><code>Take note of all my corrections first. Then, and only then, prepare
+a revision blueprint. Don't change code yet.
+
+1. &lt;critique&gt;
+2. &lt;critique&gt;
+3. &lt;critique&gt;</code></pre>
+        </div>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">06</span> Work in phases, not in one giant leap</h4>
+        <p>Ask for step one only, then review it, then step two. Small steps make bugs obvious and reversals cheap. Make each experiment its own commit with its own undo instruction, so one dial can be rejected without losing the others.</p>
+      </article>
+    </section>
+
+    <section id="direct" class="section">
+      <h3>Direct like a designer</h3>
+
+      <article class="tip">
+        <h4><span class="tip__n">07</span> Use references, not vague adjectives</h4>
+        <p>“Make the titles better” gives the agent nothing. “Number items like a catalogue — PRD-001, PRD-002 — so the label works whatever the item is” gives it something to aim at. The same goes for “a highlighter blue”, “soft edges like a real marker”, or “the feel of a well-made instrument”.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">08</span> Tell the agent where to look</h4>
+        <p>You already know where the pain is. Say “check the settings screen at 390px” instead of asking it to check the whole app and guess.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">09</span> Invite pushback</h4>
+        <p>“Push back if your option is better?” turns a yes-machine into a colleague. In a real build, asking for two buttons produced a reasoned argument for one; accepting it produced a better product.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">10</span> When you want speed, say so</h4>
+        <p>Short prompts produce short answers. “No monologue. Top fix only. Wait for approval.” is a complete instruction when the site is on fire.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">11</span> Make the agent show you the result</h4>
+        <p>“Show me locally before deploying” should be the default ending of a build prompt. A change that has been deployed before you saw it is a change you did not approve.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">12</span> Repeat, then escalate from symptom to cause</h4>
+        <p>If the same complaint comes back, do not just repeat it. Say: “None of your fixes worked. Investigate the root cause.” That forces an investigation instead of another patch.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">13</span> Revert, but keep the good part</h4>
+        <p>A revert does not have to throw everything away. “Go back to the earlier layout, but keep the same column width and scale the image inside it” preserves the useful decision.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">14</span> Don't let two agents write the same file</h4>
+        <p>Concurrent edits to one area have to be reverted and carefully re-applied. If you run agents in parallel, give each one a separate set of files.</p>
+      </article>
+    </section>
+
+    <section id="quality" class="section">
+      <h3>Make quality non-negotiable</h3>
+
+      <article class="tip">
+        <h4><span class="tip__n">15</span> Ask for evidence, not adjectives</h4>
+        <p>“It should work now” is not proof. “I clicked the row, reloaded, and the new value was still there” is proof. An automated click that calls a handler directly is not a real click: it skips hit-testing, pointer events, and everything that can go wrong for a person.</p>
+        <p class="why"><strong>Drive a real input.</strong> Ask for a genuine browser click or tap, a real reload, and the actual numbers. For a dashboard, that usually means a small script that drives the browser the way a person does — because synthetic events flatter the result.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">16</span> Protect the design system</h4>
+        <p>Say what to preserve: “change this screen, keep the tokens, don't touch the other pages, no new dependencies.” Without a boundary, an agent will “improve” unrelated parts of the app.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">17</span> Demand beginner-level explanations</h4>
+        <p>“Explain how this works as if I've never seen the code.” If the explanation is confusing, the design probably is too.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">18</span> Ask the agent to audit itself</h4>
+        <p>Give it a checklist, not the word “review”: links, empty states, narrow screens, contrast, failed writes, and anything you told it to preserve. Also ask what is working, so the report is not one-sided.</p>
+      </article>
+    </section>
+
+    <section id="rules" class="section">
+      <h3>Write the rules down once</h3>
+
+      <article class="tip">
+        <h4><span class="tip__n">19</span> Give the agent a short rulebook it reads every session</h4>
+        <p>Seven short rules, kept in the project and repeated automatically, beat a long manual nobody reads:</p>
+        <ol class="rules">
+          <li><strong>Propose, then wait.</strong> Approve a blueprint before code changes.</li>
+          <li><strong>Deeper, not bigger.</strong> Depth is doing it properly; size is adding features.</li>
+          <li><strong>The standing question.</strong> What would a top professional do here that I'm not asking for?</li>
+          <li><strong>The brief is a phone.</strong> The app will be reviewed on a phone.</li>
+          <li><strong>Measure, don't assert.</strong> Every claim has a number behind it.</li>
+          <li><strong>Drive a real input.</strong> A synthetic click proves a handler exists and nothing else.</li>
+          <li><strong>Be brief.</strong> Short answers, on request, every time.</li>
+        </ol>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">20</span> Keep a “do not re-litigate” list</h4>
+        <p>Whenever you reject something, record one line: “Rejected: X, because Y. Do not propose again.” Otherwise the agent will innocently bring it back next session.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">21</span> Leave resume instructions for paused decisions</h4>
+        <p>When you say “let's hold this”, add: “Write down that I must decide this before you continue.” Then the next session starts by asking, not by guessing.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">22</span> Write the spec before the code — and build the measuring instrument</h4>
+        <p>Start a proposal with a status line: “PROPOSAL. Nothing is built. No files changed.” Give each item the headings What / Why / Cost and risk / Verified by / Must not break. Ask for the check script to be written alongside the proposal, because a claim without a way to re-check it is a rumour.</p>
+      </article>
+
+      <article class="tip">
+        <h4><span class="tip__n">23</span> Report the symptom in your own words, mistakes and all</h4>
+        <p>“It says saved but nothing changed” is a perfect bug report. Do not diagnose first. Say “reproduce it before fixing it”, and if the first fix changes nothing, keep looking — one symptom often hides two unrelated causes.</p>
+      </article>
+    </section>
+
+    <section id="dashboard" class="section section--chapter">
+      <p class="chapter__label">Part two</p>
+      <h2>Building dashboards</h2>
+      <p>A dashboard is not a page with charts. It is a control room: someone must see the state of things, change them safely, and know the change stuck.</p>
+      <p>Before you prompt, know the eight things every dashboard screen needs:</p>
+      <ol class="numbered">
+        <li><strong>Data</strong> — where the rows come from.</li>
+        <li><strong>A view</strong> — a table, cards, or charts showing current state.</li>
+        <li><strong>An editor</strong> — a form to change one row.</li>
+        <li><strong>A save action</strong> — and proof the save worked.</li>
+        <li><strong>A publish action</strong> — if edits should not go live immediately.</li>
+        <li><strong>Five states</strong> — empty, loading, populated, error, saving.</li>
+        <li><strong>A narrow layout</strong> — it will be opened on a phone.</li>
+        <li><strong>A check</strong> — proof that add, edit, and delete actually happened.</li>
+      </ol>
+      <p>If your prompt mentions only data and a view, you will get a demo, not a tool.</p>
+    </section>
+
+    <section id="model" class="section">
+      <h3>1. Start with the data model, not the layout</h3>
+      <p>Before asking for UI, answer: what objects exist, which fields each has, who may edit them, and where the data is stored.</p>
+      <div class="code">
+        <button class="copy" type="button" aria-label="Copy prompt">Copy</button>
+        <pre><code>Before writing UI, show me the data model for &lt;thing&gt;:
+- object names and fields
+- which fields are editable in the dashboard
+- where data is stored and how it reaches the public view
+Don't write code yet.</code></pre>
+      </div>
+      <p>Keep every editable field in one list that the form, the save code, and the checks all read from. A field missing from that list is silently dropped on save — the most frustrating kind of dashboard bug, because the interface says it worked.</p>
+    </section>
+
+    <section id="states" class="section">
+      <h3>2. Design all five states, not just the happy one</h3>
+      <p>Dashboards are where “it works on my machine” dies. Ask for:</p>
+      <ul>
+        <li><strong>Empty</strong> — no data yet; what does the screen say?</li>
+        <li><strong>Loading</strong> — what shows while data loads?</li>
+        <li><strong>Populated</strong> — the normal view.</li>
+        <li><strong>Error</strong> — what if the request or upload fails?</li>
+        <li><strong>Saving / publishing</strong> — is there visible, honest confirmation?</li>
+      </ul>
+      <p>Never show “saved” until the write has actually been confirmed. Confirm by reading the data back, not by trusting the response. A false success message is worse than no message.</p>
+    </section>
+
+    <section id="publish" class="section">
+      <h3>3. Separate Save from Publish</h3>
+      <p>Decide explicitly whether an edit goes live immediately or needs a publish step. For a content dashboard, automatic private saving plus an explicit Publish action is usually safer.</p>
+      <div class="pullquote pullquote--plain">
+        <p>A reasoned pushback from a real build: “Publish gating is worth it; a separate Save button is not. Save prevents data loss, which is the bigger risk. Publish should be explicit.” The beginner accepted it in four words: “skip Save, add Publish site.”</p>
+      </div>
+      <p><strong>Lesson.</strong> Describe the outcome you want — “fail proof” — and let the agent propose where the gate belongs. You can accept a better design in one reply.</p>
+      <p>Give the publish button real states, such as <code>idle / starting / polling / published / failed</code>, and paint every transition on the button itself. The transition table is the guard: a double-click must not start two deploys. Cancel timers on every exit path, and give up after a few failed polls instead of polling forever.</p>
+    </section>
+
+    <section id="metric" class="section">
+      <h3>4. Guard against vanity metrics</h3>
+      <p>Ask for numbers that prove something — items published, items in draft, last sync time, failed uploads — not decorative counts. Ask the agent to justify every number it puts on screen.</p>
+
+      <h3>5. Make it responsive and check it on a phone</h3>
+      <p>Dashboards are used on laptops but reviewed on phones. Say “mobile first” in the original prompt, then verify at 390px. A control that is off-screen is a broken control, especially when there is no clue anything is hidden.</p>
+
+      <h3>6. Ask for theming and accessibility up front</h3>
+      <p>Name the toggle action, not the current state. Ask for focus order, keyboard-only operation, visible focus rings, labels on every input, and an announcement when saving or publishing completes. Keep all colours in one token set; a literal colour in a component breaks the other theme.</p>
+
+      <h3>7. Name the things that must not change</h3>
+      <p>List the invariants: the auth flow, the data schema, the tokens, the public view's behaviour, the size budget. Then a fix that quietly changes one is recognisable as a failure. Add: “If the fix needs more than the file set I named, stop and report. Never approximate.”</p>
+
+      <h3>8. Specify copy and budgets — never invent data</h3>
+      <p>Store user-facing strings in one place so the agent cannot paraphrase them. In a demo, label sample numbers clearly as placeholders. Never let it invent handles, identities, or metrics.</p>
+    </section>
+
+    <section id="verifydash" class="section">
+      <h3>9. Make the checks falsifiable</h3>
+      <p>Reproduce first, record the result, fix, record again. If a check passes both times, it proves nothing. Also check that the harness is measuring the real app and real data — a test rig pointed at an empty stub will report green forever.</p>
+      <div class="code">
+        <button class="copy" type="button" aria-label="Copy prompt">Copy</button>
+        <pre><code>Before the fix, run &lt;check&gt; and record the result. After the fix,
+run it again and record the result. If it passes both times, it
+proves nothing. Tell me both numbers.</code></pre>
+      </div>
+      <p>For a dashboard ask the agent to build hooks that prove: add → reload → row exists; edit → reload → new value; delete → confirm → gone; failed upload → clear error, no false success; mobile width → no overflow, buttons reachable; publish → the public view reflects the change.</p>
+
+      <h3>10. For a big dashboard, separate the roles</h3>
+      <p>One agent edits files. A second reviews the diff against the written spec and does not edit. A third runs independent checks and does not edit. An agent reviewing its own work tends to agree with itself.</p>
+
+      <h3>11. A dashboard prompt you can copy</h3>
+      <div class="code">
+        <button class="copy" type="button" aria-label="Copy dashboard prompt">Copy</button>
+        <pre><code>Goal: Build a "Content" screen in the admin dashboard to manage &lt;items&gt;.
+
+Context: It uses the same data source as the public &lt;section&gt;.
+Follow the existing layout, tokens and auth. Fields: title, date,
+image, description, published (boolean).
+
+Constraints: No new dependencies. Don't change public pages. Keep
+the design system and the current theme toggle. Model the publish
+button as a state machine; prevent double-clicks.
+
+States: Show empty, loading, populated, error and saving states.
+Never show "saved" unless the write actually succeeded. Publish is
+separate from the automatic private save.
+
+Check: Verify in-browser — add, edit, delete, reload, error case,
+mobile width, and real clicks (not synthetic ones). Rebuild assets.
+
+Delivery: Show me locally first. Don't deploy.</code></pre>
+      </div>
+    </section>
+
+    <section id="stories" class="section">
+      <h3>War stories, made universal</h3>
+      <p class="section__intro">Five short failures that teach more than any rule.</p>
+
+      <article class="story">
+        <h4>“It says saved, but nothing changed”</h4>
+        <p>Two unrelated bugs hid behind one sentence. The form turned an uploaded file into the string <code>"{}"</code>, so text fields saved and the image did not — the request returned 200 and the interface said “saved”. Separately, the upload route was shadowed by a catch-all, so drag-and-drop had never worked.</p>
+        <p><strong>Lesson.</strong> A 200 response and a toast are not proof. Read the data back. When the first fix changes nothing, look for a second cause.</p>
+      </article>
+
+      <article class="story">
+        <h4>“The settings screen still shows the login page”</h4>
+        <p>The static host answered a missing API path with the homepage and a 200. The client helper treated that HTML as data, decided the user was not logged in, and showed login — only on the deployed site, which nobody had tested by hand.</p>
+        <p><strong>Lesson.</strong> Verify through the same surface the user uses: the deployed page, a real browser, a real login. “The API works” is not the same claim as “the dashboard works.”</p>
+      </article>
+
+      <article class="story">
+        <h4>“Nothing happens” when pressing Publish</h4>
+        <p>The fix was correct on the server, but the browser kept serving a cached old script, so the same error kept appearing. Cache-busting was a separate fix.</p>
+        <p><strong>Lesson.</strong> When a fix appears not to work, check that it was delivered before rewriting it.</p>
+      </article>
+
+      <article class="story">
+        <h4>“I changed the order, but it didn't stick”</h4>
+        <p>Again two causes: the build ignored the column the buttons were writing, and nothing rebuilt the public data after an edit. The second looked exactly like the first.</p>
+        <p><strong>Lesson.</strong> One symptom, two layers. Trace the whole path: button → write → storage → build → screen.</p>
+      </article>
+
+      <article class="story">
+        <h4>“Check the settings on a phone”</h4>
+        <p>Four menu items were off-screen at 390px, including the account settings. Nothing indicated there was more to scroll to.</p>
+        <p><strong>Lesson.</strong> “Every action reachable at 390px” belongs in your acceptance criteria.</p>
+      </article>
+    </section>
+
+    <section id="templates" class="section section--chapter">
+      <p class="chapter__label">Part three</p>
+      <h2>Copy-paste prompts</h2>
+      <p>Change the angle brackets. Keep the structure.</p>
+
+      <h3>Explore first</h3>
+      <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>&lt;idea&gt;. Don't do it yet — I'm asking. Tell me the options,
+the trade-offs, and your recommendation. Don't change any files.</code></pre></div>
+
+      <h3>Plan with my feedback</h3>
+      <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>Take note of all my corrections first. Then, and only then, prepare
+a revision blueprint. Don't change code yet.
+
+1. &lt;critique&gt;
+2. &lt;critique&gt;
+3. &lt;critique&gt;</code></pre></div>
+
+      <h3>Deeper, not bigger</h3>
+      <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>I want a deeper version of this task, not a bigger one. Before
+revising: (1) what would a top professional do here that I'm not
+asking for? (2) what's the rawest material they'd start from?
+(3) what specific methods and tools would they use?
+(4) what — other than you or me — would prove the result is right?
+Then revise with my feedback.</code></pre></div>
+
+      <h3>Bug report</h3>
+      <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>Here is exactly what I saw: &lt;your words, verbatim&gt;. It happens
+&lt;where / when&gt;, especially &lt;device/context&gt;. Reproduce it first,
+then investigate the root cause — none of the recent fixes worked.
+If your fix doesn't change what I see, keep looking for a second
+cause. Identify the top fix and tell me. Wait for approval.</code></pre></div>
+
+      <h3>Audit</h3>
+      <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>Do a thorough audit of &lt;scope&gt;. Check &lt;specific list: links, empty
+states, mobile, contrast, failed writes&gt;. Also tell me what works
+and what I told you to preserve. Report problems before changing
+anything.</code></pre></div>
+
+      <h3>Handoff / memory</h3>
+      <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>Compress the chat to save context. Don't miss any nuance. Update
+the README and CONTEXT.md so the next session can start with
+perfect context.</code></pre></div>
+
+      <h3>Review before deploy</h3>
+      <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>Show me the local site. Verify &lt;specific checks&gt;. Tell me the
+actual results. Don't deploy until I say so.</code></pre></div>
+
+      <h3>Write a proposal, not code</h3>
+      <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>Write a proposal for &lt;change&gt;. Status line: "PROPOSAL — nothing
+is built, no files changed." For each item use: What / Why / Cost
+and risk / Verified by / Must not break. Build the check script
+alongside the proposal. End with what you deliberately left out
+and what I must decide. Wait for my approval.</code></pre></div>
+
+      <h3>Remember a rejection</h3>
+      <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>I reject &lt;thing&gt;. Record in the context doc: "Rejected: &lt;thing&gt;,
+because &lt;reason&gt;. Do not propose again." Don't change any code.</code></pre></div>
+    </section>
+
+    <section id="loop" class="section">
+      <h2>The working loop</h2>
+      <div class="loop">
+        <div><span>01</span><strong>Explore</strong><p>Ask questions. “Don't change anything yet.”</p></div>
+        <div><span>02</span><strong>Define</strong><p>Data model and blueprint before code.</p></div>
+        <div><span>03</span><strong>Build</strong><p>One small step at a time.</p></div>
+        <div><span>04</span><strong>See</strong><p>Show me locally, desktop and phone.</p></div>
+        <div><span>05</span><strong>Check</strong><p>Demand evidence, not “it should work.”</p></div>
+        <div><span>06</span><strong>Decide</strong><p>Approve, push back, or revert but keep.</p></div>
+        <div><span>07</span><strong>Record</strong><p>Commit and update the context doc.</p></div>
+        <div><span>08</span><strong>Ship</strong><p>Deploy only after seeing it.</p></div>
+      </div>
+
+      <h3>Beginner's checklist</h3>
+      <ul class="checklist">
+        <li>Did I say what “done” looks like?</li>
+        <li>Did I say what must not change?</li>
+        <li>Did I tell the agent where to look?</li>
+        <li>Did I ask for a real click or tap, not a synthetic one?</li>
+        <li>Did I ask to see it before deploying?</li>
+        <li>Did I ask for proof — a click, a reload, a number?</li>
+        <li>Did I ask it to explain the result in plain language?</li>
+        <li>Did I record anything I rejected, so it won't come back?</li>
+        <li>Did I update the context doc for next time?</li>
+      </ul>
+
+      <h3>For a dashboard, also check</h3>
+      <ul class="checklist">
+        <li>Are the fields defined in one place?</li>
+        <li>Are empty, loading, error and saving states specified?</li>
+        <li>Did I decide Save versus Publish explicitly?</li>
+        <li>Is there proof the write landed, not just a toast?</li>
+        <li>Are all actions reachable at 390px?</li>
+      </ul>
+    </section>
+
+    <section id="summary" class="section">
+      <h2>The short version</h2>
+      <ol class="numbered numbered--tight">
+        <li><strong>Give it memory</strong> — a short rulebook and handoff doc, updated every session.</li>
+        <li><strong>Ask before you build</strong> — “don't change anything yet” is free.</li>
+        <li><strong>Plan, then build</strong> — corrections first, blueprint second, code third.</li>
+        <li><strong>Go deeper, not bigger</strong> — the four questions beat “add more”.</li>
+        <li><strong>Be concrete</strong> — references beat adjectives.</li>
+        <li><strong>Invite pushback</strong> — “push back if your option is better?”</li>
+        <li><strong>Show me local</strong> — never deploy unseen.</li>
+        <li><strong>Prove it</strong> — a real click and a before/after number beat “fixed”.</li>
+        <li><strong>Protect the system</strong> — name the invariants a fix may not touch.</li>
+        <li><strong>Make it falsifiable</strong> — a check must be able to fail.</li>
+        <li><strong>Record rejections</strong> — “do not re-litigate”.</li>
+        <li><strong>Iterate without ego</strong> — small commits, easy reverts, go again.</li>
+        <li><strong>For dashboards</strong> — data model first, five states, Save versus Publish, real proof the write landed, every action reachable on a phone.</li>
+      </ol>
+    </section>
+
+    <footer class="footer">
+      <p>A static guide. Read it, copy what helps, adapt the rest.</p>
+    </footer>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
