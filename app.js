@@ -752,6 +752,90 @@
     });
   });
 
+  safe('prompt clinic', function () {
+    var form = byId('clinicForm');
+    var input = byId('clinicInput');
+    var output = byId('clinicOutput');
+    var status = byId('clinicStatus');
+    if (!form || !input || !output) return;
+
+    var checks = [
+      {
+        slot: 'Goal',
+        test: /build|create|add|fix|change|make|design|review|write|update|implement/i,
+        fix: 'Start with one verb and one finished thing: "Build a content screen with add, edit and delete."'
+      },
+      {
+        slot: 'Context',
+        test: /data|file|api|source|where|existing|field|schema|directory|page|table/i,
+        fix: 'Say where the data lives and what already exists: "It reads from the same API as the public page."'
+      },
+      {
+        slot: 'Constraints',
+        test: /don't|do not|no |not |never|keep|only|without|avoid|must not/i,
+        fix: 'Name one thing that must not change: "Do not touch the public pages or the design tokens."'
+      },
+      {
+        slot: 'Check',
+        test: /verif|test|check|click|reload|assert|confirm|proof|measure|result/i,
+        fix: 'Describe the test and the result to report: "Verify add, reload and a 390px viewport; report what happened."'
+      },
+      {
+        slot: 'Delivery',
+        test: /show|local|deploy|commit|preview|wait|approval|approve/i,
+        fix: 'Say what to hand back: "Show me locally first. Do not deploy."'
+      }
+    ];
+
+    function diagnose(text) {
+      var findings = checks.map(function (check) {
+        return { slot: check.slot, ok: check.test.test(text), fix: check.fix };
+      });
+      var score = findings.filter(function (finding) { return finding.ok; }).length;
+      var verdict = score === 5
+        ? 'All five slots are present. Tighten the wording, then send it.'
+        : score >= 3
+          ? 'A good start. ' + (5 - score) + ' slot' + (5 - score === 1 ? '' : 's') + ' need work.'
+          : 'The agent will have to guess most of this. Add the missing slots first.';
+
+      var lines = [score + ' of 5 slots present.', '', verdict, ''];
+      findings.forEach(function (finding, index) {
+        lines.push((index + 1) + '. ' + finding.slot + ': ' + (finding.ok ? 'present' : 'MISSING'));
+        if (!finding.ok) lines.push('   Fix: ' + finding.fix);
+      });
+      lines.push('', 'Rebuilt shape:', '');
+      lines.push('Goal: <the one finished thing>');
+      lines.push('Context: <where the data lives and what exists>');
+      lines.push('Constraints: <what must not change>');
+      lines.push('Check: <what to test and what to report>');
+      lines.push('Delivery: show me locally first; do not deploy');
+      return lines.join('\n');
+    }
+
+    on(form, 'submit', function (event) {
+      event.preventDefault();
+      var text = input.value.trim();
+      if (text.length < 8) {
+        setText(status, 'Paste a prompt of at least a few words first.');
+        input.setAttribute('aria-invalid', 'true');
+        input.focus();
+        return;
+      }
+      input.removeAttribute('aria-invalid');
+      output.textContent = diagnose(text);
+      setText(status, 'Diagnosis ready. Copy it or revise your prompt and run it again.');
+      say('Prompt diagnosed');
+    });
+
+    on(byId('clinicClear'), 'click', function () {
+      input.value = '';
+      input.removeAttribute('aria-invalid');
+      output.textContent = 'Paste a prompt above to see its diagnosis.';
+      setText(status, '');
+      input.focus();
+    });
+  });
+
   safe('knowledge check', function () {
     var form = byId('quizForm');
     var result = byId('quizResult');

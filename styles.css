@@ -216,6 +216,18 @@ nav a.active { color: var(--accent); border-left-color: var(--accent); font-weig
 .index__arrow { color: var(--faint); font-size: .9rem; transition: transform .18s ease, color .18s ease; }
 .index__row:hover .index__arrow { transform: translate(2px, -2px); color: var(--accent); }
 
+/* reader outcome + the single worked example */
+.outcome { border-top: 0; padding-top: 1rem; }
+.content ol.outcome__list { list-style: none; padding: 0; margin: 1.4rem 0; max-width: var(--column); counter-reset: outcome; }
+.outcome__list li { position: relative; padding: .8rem 0 .8rem 2.4rem; margin: 0; border-top: 1px solid var(--rule); counter-increment: outcome; line-height: 1.55; }
+.outcome__list li::before { content: counter(outcome, decimal-leading-zero); position: absolute; left: 0; top: .85rem; font-family: var(--mono); font-size: .72rem; color: var(--accent); }
+.outcome__list strong { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; }
+.content ol.thread { list-style: none; padding: 0; margin: 1.6rem 0; max-width: var(--column); }
+.thread li { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: 1rem; padding: 1rem 0; margin: 0; border-top: 1px solid var(--rule); }
+.thread li > span { font-family: var(--mono); font-size: .75rem; color: var(--accent); padding-top: .18rem; }
+.thread strong { display: block; font-family: var(--serif); font-size: 1.05rem; font-weight: 600; }
+.thread p { margin: .25rem 0 0; color: var(--muted); font-size: .89rem; line-height: 1.55; }
+
 /* lists and inline code */
 ul, ol { padding-left: 1.5rem; margin: 0 0 1.15rem; }
 li { margin-bottom: .5rem; padding-left: .15rem; }
@@ -318,6 +330,16 @@ code { font-family: var(--mono); font-size: .86em; background: var(--code-bg); c
 .composer__toggle { display: flex !important; align-items: center; gap: .6rem; font-size: .88rem !important; font-weight: 500 !important; color: var(--ink) !important; }
 .composer__toggle input { width: 1rem; height: 1rem; accent-color: var(--accent); }
 .composer__actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .35rem; }
+.clinic { margin: 1.2rem 0 .4rem; }
+.clinic label { display: block; font-size: .82rem; font-weight: 650; color: var(--muted); margin-bottom: .3rem; }
+.clinic textarea {
+  display: block; width: 100%; padding: .7rem .8rem; border: 1px solid var(--rule);
+  border-radius: 2px; background: var(--paper); color: var(--ink);
+  font-family: var(--sans); font-size: .9rem; line-height: 1.55; resize: vertical;
+}
+.clinic textarea:focus { border-color: var(--accent); }
+.clinic textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.clinic textarea[aria-invalid="true"] { border-color: var(--accent); box-shadow: inset 0 -2px 0 var(--accent); }
 .quiz { margin: 1.5rem 0; }
 .quiz fieldset { border: 0; border-top: 1px solid var(--rule); padding: 1.1rem 0 .4rem; margin: 0; }
 .quiz legend { padding: 0 .5rem 0 0; font-family: var(--serif); font-size: 1.06rem; font-weight: 600; line-height: 1.45; }
@@ -403,6 +425,7 @@ code { font-family: var(--mono); font-size: .86em; background: var(--code-bg); c
   .iconbtn { min-width: 44px; min-height: 44px; }
   .chip { min-height: 40px; }
   .composer input[type="text"], .composer textarea { font-size: 16px; }
+  .clinic textarea { font-size: 16px; }
   .quiz fieldset label { padding: .4rem 0; font-size: 16px; }
   .quiz input[type="radio"] { width: 1.1rem; height: 1.1rem; }
   .composer__actions .button, .filter-notice__clear, .start-here__dismiss,

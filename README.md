@@ -35,7 +35,9 @@ The reading list links to primary sources — Anthropic's and OpenAI's prompting
 - Full-text search across every habit, rule, story, and template; matching sections open automatically
 - Category filters for the prompt library and level filters for the technique toolkit
 - A "surprise me" button that opens a random technique
+- A reader outcome panel and a single worked example threaded through the guide
 - A prompt composer that builds tagged prompts or a metaprompt from your answers
+- A prompt clinic that scores a pasted prompt against the five slots and shows a fix for each gap
 - A five-question knowledge check with instant explanations
 - Copy-all for the visible prompt library
 - Expand-all and collapse-all controls

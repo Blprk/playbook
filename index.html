@@ -43,6 +43,8 @@
       <nav id="nav" aria-label="Chapters">
         <p class="nav__group">Overview</p>
         <a href="#top">Cover</a>
+        <a href="#outcome">What you'll be able to do</a>
+        <a href="#thread">One example, all the way through</a>
         <a href="#overview">Manual at a glance</a>
 
         <p class="nav__group">01 — Foundations</p>
@@ -106,6 +108,32 @@ Constraints: &lt;what must not change&gt;
 Check: &lt;what to test and what to report&gt;
 Delivery: &lt;show me / commit / deploy&gt;</code></pre>
       </div>
+    </section>
+
+    <section id="outcome" class="section outcome">
+      <p class="chapter__label">The goal</p>
+      <h2>What you'll be able to do</h2>
+      <p>This guide is not a catalogue to finish. It is meant to leave you with three abilities:</p>
+      <ol class="outcome__list">
+        <li><strong>Write a prompt an agent can actually follow.</strong> You can name the goal, the context, the limits, the test, and the handback in five lines.</li>
+        <li><strong>Run a loop that catches bad work.</strong> You know when to ask for a proposal, when to say wait, and when to insist on seeing the local result.</li>
+        <li><strong>Prove a dashboard change is real.</strong> You can drive a real click and a reload, and say what happened with a number instead of an adjective.</li>
+      </ol>
+      <p class="muted">Your first twenty minutes: read habits <a href="#memory">01–03</a>, then dashboard rules <a href="#db-foundation">01–03</a>, then use <a href="#composer">the composer</a>. Stop there. Come back to the rest when something breaks.</p>
+    </section>
+
+    <section id="thread" class="section">
+      <p class="chapter__label">The running example</p>
+      <h2>One screen, all the way through</h2>
+      <p>Every idea below is shown against the same job. Not eight disconnected tips — one small dashboard screen, taken from a vague request to a verified result.</p>
+      <ol class="thread">
+        <li><span>01</span><div><strong>The vague ask</strong><p>“Build a content screen.” The agent guesses the fields, the save behaviour, and what “done” means. The result looks plausible and cannot be trusted.</p></div></li>
+        <li><span>02</span><div><strong>The five slots</strong><p>Name the goal, the data source, the fields, the pages that must not change, the checks, and “show me locally first”. That is the <a href="#starterPrompt">template at the top</a>.</p></div></li>
+        <li><span>03</span><div><strong>The honest first result</strong><p>The screen says “Saved”, but the row disappears on reload. Two unrelated causes sit behind one sentence: a field silently dropped, and no re-read after the write.</p></div></li>
+        <li><span>04</span><div><strong>The correction</strong><p>Map the <a href="#db-design">hidden states</a> of the save button, put every editable field in <a href="#db-foundation">one list</a>, and separate automatic private saving from an explicit Publish action.</p></div></li>
+        <li><span>05</span><div><strong>The proof</strong><p>A real click adds a row, a reload keeps it, a mobile viewport reaches every control, and the report gives the numbers. That is <a href="#db-proof">falsifiable verification</a>.</p></div></li>
+      </ol>
+      <p class="muted">Keep this example in mind as you read. When a technique feels abstract, ask how it would change this one screen.</p>
     </section>
 
     <section id="overview" class="section section--chapter">
@@ -723,6 +751,22 @@ score out of 10 for each with evidence, and fix anything below
       </div>
       <p class="filter-status" id="composerStatus" role="status" aria-live="polite"></p>
 
+      <h3>Prompt clinic</h3>
+      <p>Paste a prompt you have written. It gets scored against the five slots, with a fix for each gap. Nothing leaves your browser.</p>
+      <form id="clinicForm" class="clinic">
+        <label for="clinicInput">Your prompt</label>
+        <textarea id="clinicInput" rows="4" placeholder="Paste a real prompt here — even a rough one"></textarea>
+        <div class="composer__actions">
+          <button class="button button--primary" type="submit">Diagnose my prompt</button>
+          <button class="button button--ghost" type="button" id="clinicClear">Clear</button>
+        </div>
+      </form>
+      <div class="code">
+        <button class="copy" type="button" aria-label="Copy diagnosis">Copy</button>
+        <pre><code id="clinicOutput">Paste a prompt above to see its diagnosis.</code></pre>
+      </div>
+      <p class="filter-status" id="clinicStatus" role="status" aria-live="polite"></p>
+
       <h3 id="quiz">Knowledge check</h3>
       <p>Five questions, instant explanations. No score is sent anywhere.</p>
       <form id="quizForm" class="quiz">
@@ -840,6 +884,10 @@ score out of 10 for each with evidence, and fix anything below
         <li><span>07</span><strong>Record</strong><p>Commit and update the context doc.</p></li>
         <li><span>08</span><strong>Ship</strong><p>Deploy only after seeing it.</p></li>
       </ol>
+
+      <div class="callout callout--plain">
+        <p><strong>How to know this guide worked.</strong> Give it to five people who have never directed an agent. Ask them to build one dashboard screen in thirty minutes without asking you for help. Then read their prompts: do they contain the five slots? Watch their verification: do they click for real and reload? Ask them a day later what a synthetic click proves. Their behaviour — not your satisfaction, and not a Lighthouse score — is the evidence.</p>
+      </div>
 
       <div class="checks">
         <div class="checks__head">
