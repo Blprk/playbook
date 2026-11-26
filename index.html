@@ -59,10 +59,21 @@
         <a href="#db-proof">Prove it works</a>
         <a href="#stories">War stories</a>
 
-        <p class="nav__group">03 — Library</p>
+        <p class="nav__group">03 — Techniques</p>
+        <a href="#techniques">Technique toolkit</a>
+
+        <p class="nav__group">04 — Library</p>
         <a href="#library">Prompt library</a>
 
-        <p class="nav__group">04 — Take away</p>
+        <p class="nav__group">05 — Practice</p>
+        <a href="#composer">Prompt composer</a>
+        <a href="#quiz">Knowledge check</a>
+
+        <p class="nav__group">06 — Further reading</p>
+        <a href="#resources">Learning resources</a>
+        <a href="#optimizers">Prompt optimizers</a>
+
+        <p class="nav__group">07 — Take away</p>
         <a href="#loop">The working loop</a>
         <a href="#summary">One-screen cheat sheet</a>
       </nav>
@@ -81,7 +92,7 @@
       <p class="cover__kicker">A field manual for builders</p>
       <h1 id="pageTitle">Prompting an Agent to Build Great Software</h1>
       <p class="cover__lede">You are the director. The agent is the builder. Make the target unmistakable, then inspect the result.</p>
-      <p class="cover__note">Twenty-three habits. A dashboard playbook. A prompt library. Written for someone starting from zero.</p>
+      <p class="cover__note">Twenty-three habits. A dashboard playbook. Thirty-two techniques. A prompt library, a practice lab, and a reading list.</p>
       <div class="cover__actions">
         <a class="button button--primary" href="#foundations">Read the habits</a>
         <a class="button" href="#dashboard">Go to dashboards</a>
@@ -103,9 +114,12 @@ Delivery: &lt;show me / commit / deploy&gt;</code></pre>
       <p>Start anywhere. The chapters are independent; the loop at the end ties them together.</p>
       <div class="index">
         <a class="index__row" href="#foundations"><span class="index__n">01</span><span class="index__body"><strong>Foundations</strong><small>Twenty-three habits in five groups, from memory to evidence.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
-        <a class="index__row" href="#dashboard"><span class="index__n">02</span><span class="index__body"><strong>Dashboard playbook</strong><small>Sixteen practical rules and five failures worth remembering.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
-        <a class="index__row" href="#library"><span class="index__n">03</span><span class="index__body"><strong>Prompt library</strong><small>Ten ready-to-copy prompts, filterable by job.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
-        <a class="index__row" href="#loop"><span class="index__n">04</span><span class="index__body"><strong>The loop</strong><small>A repeatable workflow, checklists, and a one-screen cheat sheet.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
+        <a class="index__row" href="#dashboard"><span class="index__n">02</span><span class="index__body"><strong>Dashboard playbook</strong><small>Twelve practical rules and five failures worth remembering.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
+        <a class="index__row" href="#techniques"><span class="index__n">03</span><span class="index__body"><strong>Technique toolkit</strong><small>Thirty-two prompting methods, filterable by experience level.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
+        <a class="index__row" href="#library"><span class="index__n">04</span><span class="index__body"><strong>Prompt library</strong><small>Fourteen ready-to-copy prompts, filterable by job.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
+        <a class="index__row" href="#composer"><span class="index__n">05</span><span class="index__body"><strong>Practice lab</strong><small>Build a structured prompt, then test what you have learned.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
+        <a class="index__row" href="#resources"><span class="index__n">06</span><span class="index__body"><strong>Further reading</strong><small>Trusted guides, and an honest look at prompt optimizers.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
+        <a class="index__row" href="#loop"><span class="index__n">07</span><span class="index__body"><strong>The loop</strong><small>A repeatable workflow, checklists, and a one-screen cheat sheet.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
       </div>
     </section>
 
@@ -324,7 +338,7 @@ Don't write code yet.</code></pre></div>
     </section>
 
     <section id="db-design" class="group" aria-labelledby="dbDesignTitle">
-      <div class="group__head"><h3 id="dbDesignTitle">Design for use</h3><span class="group__count">5 rules</span></div>
+      <div class="group__head"><h3 id="dbDesignTitle">Design for use</h3><span class="group__count">6 rules</span></div>
       <details class="item searchable" data-search="vanity metrics numbers counts meaningful justify">
         <summary><span class="item__n">04</span><span class="item__title">Guard against vanity metrics</span><span class="item__toggle" aria-hidden="true"></span></summary>
         <div class="item__body"><p>Ask for numbers that prove something — items published, items in draft, last sync time, failed uploads — not decorative counts. Ask the agent to justify every number it puts on screen.</p></div>
@@ -345,12 +359,26 @@ Don't write code yet.</code></pre></div>
         <summary><span class="item__n">08</span><span class="item__title">Specify copy and budgets — never invent data</span><span class="item__toggle" aria-hidden="true"></span></summary>
         <div class="item__body"><p>Store user-facing strings in one place so the agent cannot paraphrase them. In a demo, label sample numbers clearly as placeholders. Never let it invent handles, identities, or metrics.</p></div>
       </details>
+      <details class="item searchable" data-search="implicit state machines ui ux hidden states events transition table boolean flags double click stale timer">
+        <summary><span class="item__n">09</span><span class="item__title">Map the hidden state machines in your UI</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body">
+          <p>Most dashboard bugs are not styling problems. They are unnamed states. A panel reopened during its own closing animation gets hidden by a stale teardown timer. A publish button is clicked twice and starts two jobs. A loose pair of booleans multiplies into combinations nobody designed.</p>
+          <p>Ask the agent to write the states down before it writes the UI:</p>
+          <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>Map the implicit state machines in &lt;screen&gt;. Before writing
+code, list every named state, every legal event, and every event
+that must be ignored. For &lt;async action&gt;, make the button the
+visible state: idle / pending / success / failed. Cancel timers
+on every exit path. Use a transition table, not loose booleans.
+Show me the map first; wait for my approval.</code></pre></div>
+          <p class="why"><strong>Why it works.</strong> A named machine turns “nothing happens” into a specific state and event. It also gives you a test surface: illegal events become no-ops, and every transition can be checked. For a dashboard, ask for a generation token so an old teardown cannot hide a freshly reopened panel, and for an explicit failure state after a few retries instead of an endless spinner.</p>
+        </div>
+      </details>
     </section>
 
     <section id="db-proof" class="group" aria-labelledby="dbProofTitle">
       <div class="group__head"><h3 id="dbProofTitle">Prove it works</h3><span class="group__count">3 rules</span></div>
       <details class="item searchable" data-search="falsifiable before after check harness stub real data gate">
-        <summary><span class="item__n">09</span><span class="item__title">Make the checks falsifiable</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <summary><span class="item__n">10</span><span class="item__title">Make the checks falsifiable</span><span class="item__toggle" aria-hidden="true"></span></summary>
         <div class="item__body">
           <p>Reproduce first, record the result, fix, record again. If a check passes both times, it proves nothing. Also check that the harness is measuring the real app and real data — a test rig pointed at an empty stub will report green forever.</p>
           <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>Before the fix, run &lt;check&gt; and record the result. After the fix,
@@ -360,11 +388,11 @@ proves nothing. Tell me both numbers.</code></pre></div>
         </div>
       </details>
       <details class="item searchable" data-search="roles implementer reviewer verifier independent separation">
-        <summary><span class="item__n">10</span><span class="item__title">For a big dashboard, separate the roles</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <summary><span class="item__n">11</span><span class="item__title">For a big dashboard, separate the roles</span><span class="item__toggle" aria-hidden="true"></span></summary>
         <div class="item__body"><p>One agent edits files. A second reviews the diff against the written spec and does not edit. A third runs independent checks and does not edit. An agent reviewing its own work tends to agree with itself.</p></div>
       </details>
       <details class="item searchable" data-search="dashboard prompt template full example copy">
-        <summary><span class="item__n">11</span><span class="item__title">A dashboard prompt you can copy</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <summary><span class="item__n">12</span><span class="item__title">A dashboard prompt you can copy</span><span class="item__toggle" aria-hidden="true"></span></summary>
         <div class="item__body">
           <div class="code"><button class="copy" type="button" aria-label="Copy dashboard prompt">Copy</button><pre><code>Goal: Build a "Content" screen in the admin dashboard to manage &lt;items&gt;.
 
@@ -413,16 +441,169 @@ Delivery: Show me locally first. Don't deploy.</code></pre></div>
       </details>
     </section>
 
-    <section id="library" class="section section--chapter">
+    <section id="techniques" class="section section--chapter">
       <p class="chapter__label">Chapter 03</p>
+      <h2>Technique toolkit</h2>
+      <p>Thirty-two methods for getting better work out of an agent. The first eight are enough for most people. The rest are there when something goes wrong or the work gets serious.</p>
+      <div class="filters" role="group" aria-label="Filter techniques by level">
+        <button class="chip level-chip is-active" type="button" data-level="all" aria-pressed="true">All levels</button>
+        <button class="chip level-chip" type="button" data-level="beginner" aria-pressed="false">Beginner</button>
+        <button class="chip level-chip" type="button" data-level="intermediate" aria-pressed="false">Intermediate</button>
+        <button class="chip level-chip" type="button" data-level="advanced" aria-pressed="false">Advanced</button>
+        <button class="chip" id="randomTip" type="button">Surprise me</button>
+      </div>
+      <p class="filter-status" id="levelStatus" role="status" aria-live="polite"></p>
+
+      <h3>Start with these eight</h3>
+      <details class="item technique searchable" data-level="beginner" data-search="five slot goal context constraints check delivery starter prompt">
+        <summary><span class="item__n">01</span><span class="item__title">The five-slot prompt</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Goal, Context, Constraints, Check, Delivery. If one slot is missing, the agent fills it with a guess. <a href="#start">See the template at the top</a>.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="beginner" data-search="colleague test clarity ambiguous instruct stranger">
+        <summary><span class="item__n">02</span><span class="item__title">The colleague test</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Show your prompt to someone with no context on the task. If they would be confused, the agent will be too. This is the fastest way to find an unstated assumption.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="beginner" data-search="why reason explain rule motivation generalize">
+        <summary><span class="item__n">03</span><span class="item__title">Explain why the rule exists</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>“Never use ellipses” is a rule the agent may break when it conflicts with something else. “This will be read aloud, so ellipses cannot be pronounced” is a reason the agent can generalise from.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="beginner" data-search="role persona senior engineer expert focus tone">
+        <summary><span class="item__n">04</span><span class="item__title">Give the agent a role</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>One sentence is enough: “You are a senior front-end engineer reviewing an accessibility-sensitive dashboard.” A role focuses tone and priorities; it does not replace concrete instructions.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="beginner" data-search="few shot examples 3 5 diverse structured pattern">
+        <summary><span class="item__n">05</span><span class="item__title">Show three to five examples</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Examples are the most reliable way to steer format and tone. Make them relevant to the real task, diverse enough to avoid accidental patterns, and wrap each in tags so it is clear where it begins and ends. Ask the agent to check your examples for relevance and diversity.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="beginner" data-search="xml tags delimiters instructions context input separate boundaries">
+        <summary><span class="item__n">06</span><span class="item__title">Separate instructions from data</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>When a prompt mixes instructions, examples, and reference material, wrap each kind in its own tag: <code>&lt;instructions&gt;</code>, <code>&lt;examples&gt;</code>, <code>&lt;context&gt;</code>, <code>&lt;input&gt;</code>. Use the same tag names every time. For short single-purpose requests, plain text is fine.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="beginner" data-search="success criteria definition of done before you prompt measure">
+        <summary><span class="item__n">07</span><span class="item__title">Define success before you prompt</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Write down what a correct result looks like and how you would test it. Then write the prompt. If you cannot describe the test, you are not ready to delegate the work.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="beginner" data-search="clarifying questions ask before act ambiguous assume">
+        <summary><span class="item__n">08</span><span class="item__title">Ask it to ask you first</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>When the brief is fuzzy, add: “Ask me clarifying questions until you have enough to start. Do not guess.” Two questions now save a wrong implementation later.</p>
+          <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>Before you start, ask me clarifying questions until you can
+state the goal, the constraints, and the success test in your
+own words. Do not make any changes yet.</code></pre></div>
+        </div>
+      </details>
+
+      <h3>Control the work</h3>
+      <details class="item technique searchable" data-level="intermediate" data-search="long context top question end documents quotes grounding">
+        <summary><span class="item__n">09</span><span class="item__title">Long context at the top, question at the end</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>With large inputs, put the documents first and the query last. Structure each document with tags and a source label. This ordering measurably improves answers on multi-document tasks.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="intermediate" data-search="quote grounding evidence before answer citations">
+        <summary><span class="item__n">10</span><span class="item__title">Ground it in quotes first</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>For document-heavy work, ask the agent to extract the relevant passages before it draws conclusions. Quoting focuses attention on the right material and makes its reasoning inspectable.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="intermediate" data-search="say what to do instead of do not negative instructions">
+        <summary><span class="item__n">11</span><span class="item__title">Say what to do, not only what not to do</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>“Do not use markdown” leaves the desired format undefined. “Write smoothly flowing prose paragraphs, using code fences only for code” gives the agent something positive to aim at.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="intermediate" data-search="match output format prompt style verbosity terse concise">
+        <summary><span class="item__n">12</span><span class="item__title">Write in the style you want back</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Prompt style influences response style. A terse, structured prompt tends to produce a terse, structured answer. If you want brevity, be brief yourself.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="intermediate" data-search="alternatives tradeoffs recommend commit one option">
+        <summary><span class="item__n">13</span><span class="item__title">Ask for options, then commit</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>“Give me three approaches with trade-offs and recommend one.” Then pick one and say “execute that one.” This separates design from implementation and stops the agent hedging.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="intermediate" data-search="pushback disagree challenge better option colleague">
+        <summary><span class="item__n">14</span><span class="item__title">Invite pushback</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>“Push back if your option is better?” The best result in the original playbook came from exactly this: a request for two buttons became an argument for one, and the narrower answer was right.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="intermediate" data-search="pre mortem what would break risk failure mode">
+        <summary><span class="item__n">15</span><span class="item__title">Run a pre-mortem</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Before implementation: “Imagine this shipped and failed. List the five most likely reasons, ranked by likelihood, and say which you will guard against first.” It finds risks that a confidence-based plan misses.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="intermediate" data-search="rubric self check grade own work score criteria">
+        <summary><span class="item__n">16</span><span class="item__title">Give it a rubric and ask it to self-check</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>“Before you finish, score your result against this rubric: correctness, accessibility, performance, and reversibility. Report the score and fix anything below 8/10.” A rubric makes self-critique specific instead of flattering.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="intermediate" data-search="reproduce fix measure before after root cause">
+        <summary><span class="item__n">17</span><span class="item__title">Reproduce, fix, then re-measure</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Insist on a before and after number. If the check passes both times, it proves nothing. This one rule catches most fake fixes and useless tests.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="intermediate" data-search="real input synthetic click browser tap pointer hit testing">
+        <summary><span class="item__n">18</span><span class="item__title">Drive a real input</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>A synthetic click proves a handler exists. It cannot tell you whether a person can reach the button. Ask for a real browser click or tap, a real reload, and the observed result.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="intermediate" data-search="builder reviewer verifier separate roles independent no edits">
+        <summary><span class="item__n">19</span><span class="item__title">Separate builder, reviewer, verifier</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>One agent edits. A second compares the diff against the written spec without editing. A third runs independent checks without editing. An agent reviewing its own work tends to agree with itself.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="intermediate" data-search="prompt chaining pipeline stages handoff structured output">
+        <summary><span class="item__n">20</span><span class="item__title">Chain prompts instead of stuffing one</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>For long work, use separate stages: research, design, implement, review, verify. Pass a short structured summary between them. Each stage gets a clean context and a single job.</p></div>
+      </details>
+
+      <h3>Think in systems</h3>
+      <details class="item technique searchable" data-level="advanced" data-search="tests first tdd red green acceptance before code">
+        <summary><span class="item__n">21</span><span class="item__title">Write the test before the feature</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Ask for a failing test that describes the behaviour you want, then the implementation that makes it pass. For dashboards, the test should use real inputs and real data, not a stub.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="advanced" data-search="single source truth fields tokens copy schema list">
+        <summary><span class="item__n">22</span><span class="item__title">One list, many consumers</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Keep editable fields, design tokens, and user-facing strings in one definition that the form, the save path, and the checks all read. A field missing from that list is silently dropped on save.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="advanced" data-search="invariants scope fence must not change stop report file set">
+        <summary><span class="item__n">23</span><span class="item__title">Fence the scope with invariants</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>List decisions a fix may not disturb, and say: “If this needs more than the named files, stop and report. Never approximate.” A fix that quietly changes an invariant is a failed fix.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="advanced" data-search="state machine ui ux implicit states events transition table">
+        <summary><span class="item__n">24</span><span class="item__title">Name the hidden state machines</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Booleans multiply into unnamed states. Ask the agent to list states, legal events, and illegal events before building the UI. <a href="#db-design">See the dashboard prompt for this</a>.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="advanced" data-search="metaprompt rewrite improve prompt rubric optimizer">
+        <summary><span class="item__n">25</span><span class="item__title">Ask the model to improve the prompt</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Metaprompting is asking an agent to critique and rewrite your prompt against a rubric. It is the cheapest optimizer there is. <a href="#composer">Use the composer below</a> to generate one.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="advanced" data-search="structured outputs json schema types enum validation">
+        <summary><span class="item__n">26</span><span class="item__title">Ask for structured output</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>When output feeds another tool, specify a schema: field names, types, allowed values, and what to do when information is missing. Free-form prose is for people; structured data is for programs.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="advanced" data-search="version prompts pin model snapshot evals regression rollback">
+        <summary><span class="item__n">27</span><span class="item__title">Version prompts like code</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Store prompts in the repository, review changes, pin model versions, and keep a small set of representative tests. Prompt changes are behaviour changes and deserve the same discipline.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="advanced" data-search="memory context windows progress files git save state resume">
+        <summary><span class="item__n">28</span><span class="item__title">Give long work a memory</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>For tasks longer than one context window, keep progress notes and a structured task list in files, commit often, and tell the agent to read them on resume. Prefer a fresh session that reads the files over a bloated conversation.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="advanced" data-search="tool use explicit verbs parallel calls agent instructions">
+        <summary><span class="item__n">29</span><span class="item__title">Be explicit about tools</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>“Can you suggest changes” often produces suggestions, not changes. “Change this function” produces a change. Say which tool or action you expect, and let independent calls run in parallel.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="advanced" data-search="effort thinking overprompting reasoning model calibrate brevity">
+        <summary><span class="item__n">30</span><span class="item__title">Calibrate effort, do not over-prompt</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Modern reasoning models already plan and self-check. Piling on “think step by step”, “be extremely thorough” and “verify everything” can add latency and over-verification. Adjust the model's effort setting, or ask for brevity explicitly, instead of writing paragraphs of meta-instructions.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="advanced" data-search="security validation secrets path containmentpermissions input trust">
+        <summary><span class="item__n">31</span><span class="item__title">Put security in the brief</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Ask for input validation, no secrets in client code, containment checks on file paths, and authorisation on every write. Security is an acceptance criterion, not a later audit.</p></div>
+      </details>
+      <details class="item technique searchable" data-level="advanced" data-search="accessibility performance budget 390px contrast reduced motion acceptance criteria">
+        <summary><span class="item__n">32</span><span class="item__title">Make quality measurable up front</span><span class="item__toggle" aria-hidden="true"></span></summary>
+        <div class="item__body"><p>Put the numbers in the prompt: viewport widths, contrast ratio, payload limit, interaction states, keyboard support, reduced motion. “Make it accessible” is a wish; “keyboard-only operation and 4.5:1 contrast at 390px” is a test.</p></div>
+      </details>
+    </section>
+
+    <section id="library" class="section section--chapter">
+      <p class="chapter__label">Chapter 04</p>
       <h2>Prompt library</h2>
-      <p>Ten prompts, filterable by job. Choose a category, then copy what you need and change the angle brackets.</p>
+      <p>Fourteen prompts, filterable by job. Choose a category, then copy what you need and change the angle brackets.</p>
       <div class="filters" role="group" aria-label="Filter prompts by category">
         <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All prompts</button>
         <button class="chip" type="button" data-filter="planning" aria-pressed="false">Planning</button>
         <button class="chip" type="button" data-filter="feedback" aria-pressed="false">Feedback</button>
         <button class="chip" type="button" data-filter="handoff" aria-pressed="false">Handoff</button>
         <button class="chip" type="button" data-filter="review" aria-pressed="false">Review</button>
+        <button class="chip" id="copyAll" type="button">Copy all visible</button>
       </div>
       <p class="filter-status" id="filterStatus" role="status" aria-live="polite"></p>
 
@@ -494,10 +675,181 @@ perfect context.</code></pre></div>
         <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>I reject &lt;thing&gt;. Record in the context doc: "Rejected: &lt;thing&gt;,
 because &lt;reason&gt;. Do not propose again." Don't change any code.</code></pre></div>
       </article>
+      <article class="template searchable" data-category="planning" data-search="state machine implicit ui ux states events transition table">
+        <div class="template__head"><h3>Model the hidden states</h3><span class="tag">Planning</span></div>
+        <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>Map the implicit state machines in &lt;screen&gt;. Before writing
+code, list every named state, every legal event, and every event
+that must be ignored. For &lt;async action&gt;, make the button the
+visible state: idle / pending / success / failed. Cancel timers
+on every exit path. Use a transition table, not loose booleans.
+Show me the map first; wait for my approval.</code></pre></div>
+      </article>
+      <article class="template searchable" data-category="planning" data-search="clarifying questions ask before act ambiguous brief">
+        <div class="template__head"><h3>Ask clarifying questions</h3><span class="tag">Planning</span></div>
+        <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>Before you start, ask me clarifying questions until you can
+state the goal, the constraints, and the success test in your
+own words. Do not make any changes yet.</code></pre></div>
+      </article>
+      <article class="template searchable" data-category="review" data-search="metaprompt improve rewrite rubric optimizer better prompt">
+        <div class="template__head"><h3>Improve this prompt</h3><span class="tag">Review</span></div>
+        <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>Here is a prompt: &lt;paste prompt&gt;. Score it against this rubric:
+clarity, completeness of context, explicit constraints, success
+criteria, and output format. Then rewrite it to score higher,
+explain what you changed, and show the revised prompt only.</code></pre></div>
+      </article>
+      <article class="template searchable" data-category="review" data-search="rubric self check grade score criteria before finish">
+        <div class="template__head"><h3>Rubric and self-check</h3><span class="tag">Review</span></div>
+        <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>Before you finish, score your own result against this rubric:
+correctness, accessibility, performance, reversibility. Give a
+score out of 10 for each with evidence, and fix anything below
+8 before you report back.</code></pre></div>
+      </article>
+    </section>
+
+    <section id="composer" class="section section--chapter">
+      <p class="chapter__label">Chapter 05</p>
+      <h2>Practice lab</h2>
+      <p>Two small tools. The first builds a structured prompt from your answers. The second checks whether the ideas have stuck.</p>
+
+      <h3>Prompt composer</h3>
+      <p>Fill the slots. The composer writes a tagged prompt you can copy straight into an agent.</p>
+      <form id="composerForm" class="composer">
+        <label>Role <span class="label-hint">optional</span>
+          <input type="text" id="cRole" placeholder="senior front-end engineer">
+        </label>
+        <label>Goal
+          <input type="text" id="cGoal" placeholder="Build a content screen with add, edit and delete">
+        </label>
+        <label>Context
+          <textarea id="cContext" rows="2" placeholder="Where it lives, what data it uses, what already exists"></textarea>
+        </label>
+        <label>Constraints
+          <textarea id="cConstraints" rows="2" placeholder="No new dependencies, keep tokens, don't touch other pages"></textarea>
+        </label>
+        <label>Check
+          <textarea id="cCheck" rows="2" placeholder="Add, edit, delete, reload, 390px, real click"></textarea>
+        </label>
+        <label>Delivery
+          <input type="text" id="cDelivery" value="Show me locally first. Don't deploy.">
+        </label>
+        <label class="composer__toggle"><input type="checkbox" id="cXml" checked> Use XML tags</label>
+        <div class="composer__actions">
+          <button class="button button--primary" type="submit">Build prompt</button>
+          <button class="button" type="button" id="composeCopy">Copy prompt</button>
+          <button class="button button--ghost" type="button" id="composeImprove">Make a metaprompt instead</button>
+        </div>
+      </form>
+      <div class="code">
+        <button class="copy" type="button" aria-label="Copy composed prompt">Copy</button>
+        <pre><code id="composerOutput">Your composed prompt will appear here.</code></pre>
+      </div>
+      <p class="filter-status" id="composerStatus" role="status" aria-live="polite"></p>
+
+      <h3 id="quiz">Knowledge check</h3>
+      <p>Five questions, instant explanations. No score is sent anywhere.</p>
+      <form id="quizForm" class="quiz">
+        <fieldset>
+          <legend>1. A dashboard says “Saved” but the row is gone after reload. What do you ask for?</legend>
+          <label><input type="radio" name="q1" value="a"> A prettier success message</label>
+          <label><input type="radio" name="q1" value="b"> Proof the write persisted, and a search for a second cause</label>
+          <label><input type="radio" name="q1" value="c"> A larger save button</label>
+        </fieldset>
+        <fieldset>
+          <legend>2. Why insist on a real click rather than a synthetic one?</legend>
+          <label><input type="radio" name="q2" value="a"> Synthetic clicks are slower</label>
+          <label><input type="radio" name="q2" value="b"> Synthetic clicks skip hit-testing and pointer events</label>
+          <label><input type="radio" name="q2" value="c"> Synthetic clicks need more tokens</label>
+        </fieldset>
+        <fieldset>
+          <legend>3. “Deeper, not bigger” means:</legend>
+          <label><input type="radio" name="q3" value="a"> Add more features</label>
+          <label><input type="radio" name="q3" value="b"> Raise the quality of the same task</label>
+          <label><input type="radio" name="q3" value="c"> Use a larger model</label>
+        </fieldset>
+        <fieldset>
+          <legend>4. Which is a real acceptance criterion?</legend>
+          <label><input type="radio" name="q4" value="a"> Make it nice and accessible</label>
+          <label><input type="radio" name="q4" value="b"> Every action reachable at 390px and saves confirmed by read-back</label>
+          <label><input type="radio" name="q4" value="c"> Use modern design</label>
+        </fieldset>
+        <fieldset>
+          <legend>5. Metaprompting is:</legend>
+          <label><input type="radio" name="q5" value="a"> Asking a model to critique and rewrite your prompt</label>
+          <label><input type="radio" name="q5" value="b"> Translating a prompt into another language</label>
+          <label><input type="radio" name="q5" value="c"> Hiding the prompt from the user</label>
+        </fieldset>
+        <div class="composer__actions">
+          <button class="button button--primary" type="submit">Check answers</button>
+          <button class="button button--ghost" type="button" id="quizReset">Reset</button>
+        </div>
+      </form>
+      <div id="quizResult" class="callout" role="status" aria-live="polite" hidden><p></p></div>
+    </section>
+
+    <section id="resources" class="section section--chapter">
+      <p class="chapter__label">Chapter 06</p>
+      <h2>Further reading</h2>
+      <p>The manual is a working guide, not the whole field. These are the sources worth going to next. Provider tools change quickly, so treat any specific feature name as a starting point and check its current documentation.</p>
+
+      <h3>Read first</h3>
+      <ul class="links">
+        <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices" target="_blank" rel="noopener noreferrer">Anthropic — Prompting best practices</a><span>The living reference for clarity, examples, XML structure, tool use, thinking and agentic work. Start here.</span></li>
+        <li><a href="https://platform.openai.com/docs/guides/prompt-engineering" target="_blank" rel="noopener noreferrer">OpenAI — Prompt engineering guide</a><span>Message roles, few-shot examples, context, structured output, and advice for coding and front-end work.</span></li>
+        <li><a href="https://learnprompting.org/docs/introduction" target="_blank" rel="noopener noreferrer">Learn Prompting — free introductory course</a><span>Written for non-technical readers, with beginner through advanced modules and an open-source bibliography.</span></li>
+        <li><a href="https://github.com/dair-ai/Prompt-Engineering-Guide" target="_blank" rel="noopener noreferrer">Prompt Engineering Guide — repository</a><span>A broad, community-maintained collection of techniques, papers and examples.</span></li>
+        <li><a href="https://arxiv.org/abs/2406.06608" target="_blank" rel="noopener noreferrer">The Prompt Report — systematic survey</a><span>A 76-page survey of over 1,500 papers covering 200-plus prompting techniques. Read selectively.</span></li>
+      </ul>
+
+      <h3>Learn by doing</h3>
+      <ul class="links">
+        <li><a href="https://github.com/anthropics/prompt-eng-interactive-tutorial" target="_blank" rel="noopener noreferrer">Anthropic interactive prompting tutorial</a><span>Example-filled exercises. Written for earlier models, so prefer the current best-practices page where they differ.</span></li>
+        <li><a href="https://colab.research.google.com/github/anthropics/claude-cookbooks/blob/main/misc/metaprompt.ipynb" target="_blank" rel="noopener noreferrer">Anthropic prompt generator notebook</a><span>A metaprompt recipe: describe a task and generate a first-draft prompt.</span></li>
+        <li><a href="https://platform.openai.com/chat/edit" target="_blank" rel="noopener noreferrer">OpenAI Playground</a><span>Iterate on a prompt with side-by-side variants before putting it into code.</span></li>
+        <li><a href="https://developers.openai.com/cookbook" target="_blank" rel="noopener noreferrer">OpenAI Cookbook</a><span>Working examples plus curated prompting libraries, guides, courses and papers.</span></li>
+      </ul>
+
+      <h3>Get serious about measurement</h3>
+      <ul class="links">
+        <li><a href="https://dspy.ai/" target="_blank" rel="noopener noreferrer">DSPy</a><span>Define typed tasks and let an optimizer tune instructions and examples against a metric. “Program, don't prompt.”</span></li>
+        <li><a href="https://docs.promptfoo.dev/" target="_blank" rel="noopener noreferrer">Promptfoo</a><span>Config-driven evaluation and red-teaming for LLM apps; useful as a CI gate.</span></li>
+        <li><a href="https://github.com/openai/evals" target="_blank" rel="noopener noreferrer">openai/evals</a><span>Open-source evaluation framework for repeatable scoring.</span></li>
+        <li><a href="https://langfuse.com/" target="_blank" rel="noopener noreferrer">Langfuse</a><span>Open-source prompt management, versioning, datasets and tracing.</span></li>
+      </ul>
+
+      <p class="muted">The tooling landscape consolidated quickly in 2026. Industry reporting describes ClickHouse acquiring Langfuse, OpenAI acquiring Promptfoo, and several other acquisitions; check current ownership and availability before committing to a vendor. <a href="https://pydantic.dev/articles/best-ai-agent-optimization-platforms-2026" target="_blank" rel="noopener noreferrer">Read the 2026 platform overview</a> for one view of that shift.</p>
+    </section>
+
+    <section id="optimizers" class="section section--chapter">
+      <p class="chapter__label">Chapter 06 continued</p>
+      <h2>Prompt optimizers, honestly</h2>
+      <p>An optimizer is anything that improves a prompt using either rewriting or measurement. The useful ones are powered by a score. Without a score, an optimizer just makes your prompt sound more confident.</p>
+
+      <h3>Start at the free end</h3>
+      <p><strong>Ask the model itself.</strong> Paste your prompt and use the “Improve this prompt” template in the library. Ask for a rubric score, a rewrite, and an explanation of what changed. This is metaprompting and it costs nothing but a few tokens.</p>
+      <p><strong>Provider tools.</strong> Vendors have shipped prompt generators, improvers and playgrounds — for example Anthropic Console's prompt improver (announced in 2024) and the OpenAI Playground. Features move fast; check the current docs before relying on a named button.</p>
+
+      <h3>When you need measurement</h3>
+      <table class="opt-table">
+        <thead><tr><th>If your problem is…</th><th>Look at</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>A lot of manual prompt editing</td><td>DSPy, DeepEval</td><td>Typed tasks and metric-driven optimisation; change the program, not the wording by hand.</td></tr>
+          <tr><td>Regressions after a prompt change</td><td>Promptfoo, openai/evals</td><td>Run a fixed set of cases in CI and fail the build when quality drops.</td></tr>
+          <tr><td>Many prompt versions and collaborators</td><td>Langfuse, PromptLayer, Humanloop</td><td>Versioning, environments, datasets and rollout control.</td></tr>
+          <tr><td>Knowing which prompt is best in production</td><td>Braintrust, Arize, LangSmith, Logfire</td><td>Tracing, online and offline evaluation, and controlled rollout. Check current capabilities and pricing.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>How to choose</h3>
+      <ol class="numbered">
+        <li><strong>Can you score the result?</strong> If not, build a small eval set first. No optimizer can help without a signal.</li>
+        <li><strong>Is the problem the prompt or the system?</strong> If the data, retrieval, or permissions are broken, a better prompt will not fix them.</li>
+        <li><strong>Do you need to own the infrastructure?</strong> Choose open-source and self-hostable before you choose a hosted platform.</li>
+      </ol>
+      <div class="callout callout--rule"><p>A prompt optimizer is a multiplier. Point it at a good eval set and it compounds quality. Point it at a vague goal and it compounds confusion.</p></div>
     </section>
 
     <section id="loop" class="section section--chapter">
-      <p class="chapter__label">Chapter 04</p>
+      <p class="chapter__label">Chapter 07</p>
       <h2>The working loop</h2>
       <p>Run this every time. Step eight happens only after step five has produced evidence.</p>
       <ol class="loop">
@@ -561,6 +913,8 @@ because &lt;reason&gt;. Do not propose again." Don't change any code.</code></pr
         <li><strong>Record rejections</strong> — “do not re-litigate”.</li>
         <li><strong>Iterate without ego</strong> — small commits, easy reverts, go again.</li>
         <li><strong>For dashboards</strong> — data model first, five states, Save versus Publish, real proof the write landed, every action reachable on a phone.</li>
+        <li><strong>Name the states</strong> — implicit UI states become bugs; map states and events before writing the interface.</li>
+        <li><strong>Keep learning</strong> — metaprompt your prompts, version what works, and optimise only against a score.</li>
       </ol>
     </section>
 

@@ -10,7 +10,9 @@
   var templates = Array.prototype.slice.call(document.querySelectorAll('.template'));
   var groups = Array.prototype.slice.call(document.querySelectorAll('.group'));
   var details = Array.prototype.slice.call(document.querySelectorAll('details.item'));
+  var techniques = Array.prototype.slice.call(document.querySelectorAll('.technique'));
   var activeCategory = 'all';
+  var activeLevel = 'all';
 
   function say(message) {
     if (announce) announce.textContent = message;
@@ -116,11 +118,14 @@
     var visible = 0;
     var queryActive = query.length > 0;
     var categoryActive = activeCategory !== 'all';
+    var levelActive = activeLevel !== 'all';
 
     allItems.forEach(function (item) {
-      var categoryOk = !categoryActive || (item.classList.contains('template') && item.getAttribute('data-category') === activeCategory);
-      if (categoryActive && !item.classList.contains('template')) categoryOk = false;
-      var show = categoryOk && matchesQuery(item, query);
+      var isTemplate = item.classList.contains('template');
+      var isTechnique = item.classList.contains('technique');
+      var categoryOk = !categoryActive || (isTemplate && item.getAttribute('data-category') === activeCategory);
+      var levelOk = !levelActive || (isTechnique && item.getAttribute('data-level') === activeLevel);
+      var show = categoryOk && levelOk && matchesQuery(item, query);
       item.classList.toggle('is-hidden', !show);
       if (show) visible += 1;
       if (queryActive && show && item.tagName === 'DETAILS') item.open = true;
@@ -133,12 +138,21 @@
       group.classList.toggle('is-hidden', !any && (queryActive || categoryActive));
     });
 
-    if (queryActive || categoryActive) {
+    if (queryActive || categoryActive || levelActive) {
       searchStatus.textContent = visible === 0 ? 'No matches' : visible + (visible === 1 ? ' match' : ' matches');
-      filterStatus.textContent = visible === 0 ? 'Nothing here with those filters.' : visible + ' prompts shown';
     } else {
       searchStatus.textContent = '';
+    }
+    var levelStatus = document.getElementById('levelStatus');
+    if (queryActive || categoryActive) {
+      filterStatus.textContent = visible === 0 ? 'Nothing here with those filters.' : visible + ' prompts shown';
+    } else {
       filterStatus.textContent = '';
+    }
+    if (levelActive) {
+      levelStatus.textContent = visible === 0 ? 'No techniques at this level.' : visible + ' techniques shown';
+    } else {
+      levelStatus.textContent = '';
     }
   }
 
@@ -151,10 +165,10 @@
     }
   });
 
-  document.querySelectorAll('.chip').forEach(function (chip) {
+  document.querySelectorAll('.chip[data-filter]').forEach(function (chip) {
     chip.addEventListener('click', function () {
       activeCategory = chip.getAttribute('data-filter');
-      document.querySelectorAll('.chip').forEach(function (other) {
+      document.querySelectorAll('.chip[data-filter]').forEach(function (other) {
         var on = other === chip;
         other.classList.toggle('is-active', on);
         other.setAttribute('aria-pressed', String(on));
@@ -162,6 +176,39 @@
       applyFilters();
       say('Showing ' + chip.textContent + ' prompts');
     });
+  });
+
+  document.querySelectorAll('.level-chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      activeLevel = chip.getAttribute('data-level');
+      document.querySelectorAll('.level-chip').forEach(function (other) {
+        var on = other === chip;
+        other.classList.toggle('is-active', on);
+        other.setAttribute('aria-pressed', String(on));
+      });
+      applyFilters();
+      say('Showing ' + chip.textContent + ' techniques');
+    });
+  });
+
+  document.getElementById('randomTip').addEventListener('click', function () {
+    var pool = techniques.filter(function (item) { return !item.classList.contains('is-hidden'); });
+    if (!pool.length) pool = techniques;
+    var pick = pool[Math.floor(Math.random() * pool.length)];
+    pick.open = true;
+    pick.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+    var title = pick.querySelector('.item__title');
+    say(title ? title.textContent : 'Technique opened');
+  });
+
+  document.getElementById('copyAll').addEventListener('click', function () {
+    var visibleTemplates = templates.filter(function (item) { return !item.classList.contains('is-hidden'); });
+    var text = visibleTemplates.map(function (item, index) {
+      var heading = item.querySelector('.template__head h3');
+      var pre = item.querySelector('pre');
+      return (index + 1) + '. ' + (heading ? heading.textContent : 'Prompt') + '\n\n' + (pre ? pre.innerText : '');
+    }).join('\n\n---\n\n');
+    copyText(text, document.getElementById('copyAll'));
   });
 
   /* ---------- expand / collapse ---------- */
@@ -261,6 +308,118 @@
     try { localStorage.setItem('field-manual-checks', '{}'); } catch (e) {}
     updateChecks();
     say('Checklist reset');
+  });
+
+  /* ---------- prompt composer ---------- */
+
+  var composerForm = document.getElementById('composerForm');
+  var composerOutput = document.getElementById('composerOutput');
+  var composerStatus = document.getElementById('composerStatus');
+  var composerFields = {
+    role: document.getElementById('cRole'),
+    goal: document.getElementById('cGoal'),
+    context: document.getElementById('cContext'),
+    constraints: document.getElementById('cConstraints'),
+    check: document.getElementById('cCheck'),
+    delivery: document.getElementById('cDelivery')
+  };
+
+  function compose() {
+    var goal = composerFields.goal.value.trim();
+    if (!goal) {
+      composerStatus.textContent = 'Add a goal before building the prompt.';
+      return null;
+    }
+    var role = composerFields.role.value.trim() || 'a careful software engineer';
+    var useXml = document.getElementById('cXml').checked;
+    if (useXml) {
+      return [
+        '<instructions>',
+        'You are ' + role + '.',
+        '</instructions>',
+        '',
+        '<goal>', goal, '</goal>',
+        '',
+        '<context>', composerFields.context.value.trim() || '(none supplied)', '</context>',
+        '',
+        '<constraints>', composerFields.constraints.value.trim() || '(none supplied)', '</constraints>',
+        '',
+        '<success_criteria>', composerFields.check.value.trim() || '(define how success will be verified)', '</success_criteria>',
+        '',
+        '<delivery>', composerFields.delivery.value.trim(), '</delivery>'
+      ].join('\n');
+    }
+    return [
+      'You are ' + role + '.',
+      '',
+      'Goal: ' + goal,
+      'Context: ' + (composerFields.context.value.trim() || '(none supplied)'),
+      'Constraints: ' + (composerFields.constraints.value.trim() || '(none supplied)'),
+      'Check: ' + (composerFields.check.value.trim() || '(define how success will be verified)'),
+      'Delivery: ' + composerFields.delivery.value.trim()
+    ].join('\n');
+  }
+
+  composerForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var prompt = compose();
+    if (!prompt) return;
+    composerOutput.textContent = prompt;
+    composerStatus.textContent = 'Prompt built. Copy it, or turn it into a metaprompt.';
+    say('Prompt composed');
+  });
+
+  document.getElementById('composeCopy').addEventListener('click', function () {
+    copyText(composerOutput.textContent, this);
+  });
+
+  document.getElementById('composeImprove').addEventListener('click', function () {
+    var prompt = compose();
+    if (!prompt) return;
+    composerOutput.textContent = [
+      'Score this prompt against this rubric: clarity, completeness of context,',
+      'explicit constraints, success criteria, and output format.',
+      'Then rewrite it to score higher, explain what you changed,',
+      'and return only the revised prompt.',
+      '',
+      '<prompt>', prompt, '</prompt>'
+    ].join('\n');
+    composerStatus.textContent = 'Metaprompt built. Paste it into an agent with the prompt still inside the tags.';
+    say('Metaprompt built');
+  });
+
+  /* ---------- knowledge check ---------- */
+
+  var quizForm = document.getElementById('quizForm');
+  var quizResult = document.getElementById('quizResult');
+  var answers = { q1: 'b', q2: 'b', q3: 'b', q4: 'b', q5: 'a' };
+  var explanations = {
+    q1: 'A 200 response and a toast are not proof; read the data back, and look for a second cause.',
+    q2: 'A synthetic event skips hit-testing, pointer events and everything that can fail for a person.',
+    q3: 'Depth is doing the same job properly. Size is adding more jobs.',
+    q4: 'A criterion has a number, a device and a test. “Make it nice” is a wish.',
+    q5: 'Metaprompting is using a model to critique and rewrite the prompt itself.'
+  };
+
+  quizForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var lines = [];
+    var score = 0;
+    Object.keys(answers).forEach(function (key) {
+      var chosen = quizForm.querySelector('input[name="' + key + '"]:checked');
+      if (!chosen) { lines.push(key.toUpperCase() + ': no answer'); return; }
+      if (chosen.value === answers[key]) { score += 1; lines.push(key.toUpperCase() + ': correct'); }
+      else lines.push(key.toUpperCase() + ': ' + explanations[key]);
+    });
+    quizResult.hidden = false;
+    quizResult.querySelector('p').textContent = score + ' of 5 correct.\n\n' + lines.join('\n');
+    say(score + ' of 5 correct');
+  });
+
+  document.getElementById('quizReset').addEventListener('click', function () {
+    quizForm.reset();
+    quizResult.hidden = true;
+    say('Quiz reset');
   });
 
   /* ---------- print ---------- */
