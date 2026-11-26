@@ -1,0 +1,12 @@
+# Private notes and handoff reports — never upload
+SOURCE-NOTES.md
+EDITORIAL-REPORT.md
+DESIGN-REPORT.md
+DESIGN-REQUESTS.md
+UX-REPORT.md
+UX-REQUESTS.md
+
+# Vercel and local clutter
+.vercel
+.git
+.DS_Store
