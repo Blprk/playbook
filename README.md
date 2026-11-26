@@ -26,7 +26,7 @@ Then visit <http://localhost:8000>.
 
 ## How the guide is organised
 
-The content is split into seven chapters: foundations (23 habits), a dashboard playbook (12 rules and 5 war stories, including a prompt for mapping implicit UI state machines), a technique toolkit (32 methods filterable by level), a prompt library (14 prompts filterable by job), a practice lab (prompt composer and knowledge check), further reading with an honest look at prompt optimizers, and a working loop with checklists and a one-screen cheat sheet. Long sections are accordions, so the page scans as a table of contents before you open anything.
+The content is split into seven chapters: foundations (23 habits), a dashboard playbook (12 rules, including a prompt for mapping implicit UI state machines), a technique toolkit (32 methods filterable by level), a prompt library (14 prompts filterable by job), a practice lab (prompt composer and knowledge check), further reading with an honest look at prompt optimizers, and a working loop with checklists and a one-screen cheat sheet. Long sections are accordions, so the page scans as a table of contents before you open anything.
 
 The reading list links to primary sources — Anthropic's and OpenAI's prompting docs, Learn Prompting, the Prompt Report — and to evaluation and optimizer tooling such as DSPy, Promptfoo, Langfuse and Braintrust. Tool names and ownership change quickly; the guide says so and points to current documentation.
 

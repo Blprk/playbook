@@ -33,6 +33,7 @@
   <aside class="sidebar" id="sidebar" aria-label="Contents">
     <div class="sidebar__inner">
       <label class="search" for="siteSearch">
+        <span class="sr-only">Search the manual</span>
         <span class="search__icon" aria-hidden="true">⌕</span>
         <input id="siteSearch" type="search" placeholder="Search the manual" autocomplete="off" aria-describedby="searchHint">
         <kbd id="searchHint" aria-hidden="true">/</kbd>
@@ -57,7 +58,6 @@
         <a href="#db-foundation">Build the foundation</a>
         <a href="#db-design">Design for use</a>
         <a href="#db-proof">Prove it works</a>
-        <a href="#stories">War stories</a>
 
         <p class="nav__group">03 — Techniques</p>
         <a href="#techniques">Technique toolkit</a>
@@ -92,7 +92,7 @@
       <p class="cover__kicker">A field manual for builders</p>
       <h1 id="pageTitle">Prompting an Agent to Build Great Software</h1>
       <p class="cover__lede">You are the director. The agent is the builder. Make the target unmistakable, then inspect the result.</p>
-      <p class="cover__note">Twenty-three habits. A dashboard playbook. Thirty-two techniques. A prompt library, a practice lab, and a reading list.</p>
+      <p class="cover__note">Twenty-three habits, twelve dashboard rules, thirty-two techniques, fourteen ready-to-use prompts, a practice lab, and a reading list.</p>
       <div class="cover__actions">
         <a class="button button--primary" href="#foundations">Read the habits</a>
         <a class="button" href="#dashboard">Go to dashboards</a>
@@ -110,11 +110,11 @@ Delivery: &lt;show me / commit / deploy&gt;</code></pre>
 
     <section id="overview" class="section section--chapter">
       <p class="chapter__label">Manual at a glance</p>
-      <h2>Four chapters, one loop</h2>
-      <p>Start anywhere. The chapters are independent; the loop at the end ties them together.</p>
+      <h2>Seven chapters, one loop</h2>
+      <p>Start anywhere. Each chapter stands on its own; Chapter 07 ties them together into one repeatable loop.</p>
       <div class="index">
         <a class="index__row" href="#foundations"><span class="index__n">01</span><span class="index__body"><strong>Foundations</strong><small>Twenty-three habits in five groups, from memory to evidence.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
-        <a class="index__row" href="#dashboard"><span class="index__n">02</span><span class="index__body"><strong>Dashboard playbook</strong><small>Twelve practical rules and five failures worth remembering.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
+        <a class="index__row" href="#dashboard"><span class="index__n">02</span><span class="index__body"><strong>Dashboard playbook</strong><small>Twelve practical rules you can put straight to work.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
         <a class="index__row" href="#techniques"><span class="index__n">03</span><span class="index__body"><strong>Technique toolkit</strong><small>Thirty-two prompting methods, filterable by experience level.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
         <a class="index__row" href="#library"><span class="index__n">04</span><span class="index__body"><strong>Prompt library</strong><small>Fourteen ready-to-copy prompts, filterable by job.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
         <a class="index__row" href="#composer"><span class="index__n">05</span><span class="index__body"><strong>Practice lab</strong><small>Build a structured prompt, then test what you have learned.</small></span><span class="index__arrow" aria-hidden="true">↗</span></a>
@@ -126,9 +126,9 @@ Delivery: &lt;show me / commit / deploy&gt;</code></pre>
     <section id="foundations" class="section section--chapter">
       <p class="chapter__label">Chapter 01</p>
       <h2>Foundations</h2>
-      <p>An agent is fast, literal, and has no taste of its own yet. It will produce exactly what you asked for — not what you meant. Prompting is the practice of closing that gap.</p>
+      <p>An agent is fast, literal, and has no taste of its own. It produces what you asked for, not what you meant. Prompting is the practice of closing that gap.</p>
       <div class="callout callout--rule"><p>Never say “build me a dashboard” and walk away.</p></div>
-      <p class="muted">Open a habit to read it. Every section is keyboard accessible, and search opens matching ones automatically.</p>
+      <p class="muted">Open a habit to read it. Every accordion is keyboard accessible, and search opens matching sections automatically.</p>
     </section>
 
     <section id="memory" class="group" aria-labelledby="memoryTitle">
@@ -136,11 +136,11 @@ Delivery: &lt;show me / commit / deploy&gt;</code></pre>
       <details class="item searchable" data-search="memory context handoff compress readme conversation">
         <summary><span class="item__n">01</span><span class="item__title">Write the handoff document before you need it</span><span class="item__toggle" aria-hidden="true"></span></summary>
         <div class="item__body">
-          <p>At the start of a build, ask for two documents: a README for humans and a short <code>CONTEXT.md</code> for the next agent. When a conversation gets long, ask for it to be compressed and for both documents to be updated.</p>
+          <p>At the start of a build, ask for two documents: a README for humans and a short <code>CONTEXT.md</code> for the next agent. When the conversation gets long, ask the agent to compress it and update both documents so a fresh session loses nothing.</p>
           <div class="code"><button class="copy" type="button" aria-label="Copy prompt">Copy</button><pre><code>Compress this conversation without losing nuance. Update the README
 for a human reader and CONTEXT.md for the next agent, so a fresh
 session can start with perfect context.</code></pre></div>
-          <p class="why"><strong>Why it works.</strong> An agent starts every session with an empty memory. One short file describing what the project is, where the data lives, what was tried, and what the rules are is the difference between starting from zero and starting from yesterday.</p>
+          <p class="why"><strong>Why it works.</strong> An agent starts each session with no memory of earlier ones. One short file — what the project is, where the data lives, what was tried, what the rules are — is the difference between starting from zero and starting from yesterday.</p>
         </div>
       </details>
       <details class="item searchable" data-search="ask question explore options dont change anything">
@@ -198,7 +198,7 @@ a revision blueprint. Don't change code yet.
       </details>
       <details class="item searchable" data-search="pushback disagree colleague better option">
         <summary><span class="item__n">09</span><span class="item__title">Invite pushback</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>“Push back if your option is better?” turns a yes-machine into a colleague. In a real build, asking for two buttons produced a reasoned argument for one; accepting it produced a better product.</p></div>
+        <div class="item__body"><p>“Push back if your option is better?” turns a yes-machine into a colleague. In one build, a request for two buttons drew a reasoned argument for one — and the single button was the better product.</p></div>
       </details>
       <details class="item searchable" data-search="terse short fast tokens no monologue">
         <summary><span class="item__n">10</span><span class="item__title">When you want speed, say so</span><span class="item__toggle" aria-hidden="true"></span></summary>
@@ -206,7 +206,7 @@ a revision blueprint. Don't change code yet.
       </details>
       <details class="item searchable" data-search="show me local preview before deploying review">
         <summary><span class="item__n">11</span><span class="item__title">Make the agent show you the result</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>“Show me locally before deploying” should be the default ending of a build prompt. A change that has been deployed before you saw it is a change you did not approve.</p></div>
+        <div class="item__body"><p>“Show me locally before deploying” should be the default ending of a build prompt. For a dashboard, that means a local URL and a screenshot of the changed screen. A change deployed before you saw it is a change you did not approve.</p></div>
       </details>
       <details class="item searchable" data-search="repeat escalate root cause investigate patches">
         <summary><span class="item__n">12</span><span class="item__title">Repeat, then escalate from symptom to cause</span><span class="item__toggle" aria-hidden="true"></span></summary>
@@ -237,7 +237,7 @@ a revision blueprint. Don't change code yet.
       </details>
       <details class="item searchable" data-search="explain beginner readme plain language understand">
         <summary><span class="item__n">17</span><span class="item__title">Demand beginner-level explanations</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>“Explain how this works as if I've never seen the code.” If the explanation is confusing, the design probably is too.</p></div>
+        <div class="item__body"><p>“Explain how this works as if I've never seen the code.” For a save form, the explanation should name the field list, the write, and the read-back in that order. If the explanation is confusing, the design probably is too.</p></div>
       </details>
       <details class="item searchable" data-search="audit review checklist what works preserve">
         <summary><span class="item__n">18</span><span class="item__title">Ask the agent to audit itself</span><span class="item__toggle" aria-hidden="true"></span></summary>
@@ -283,6 +283,7 @@ a revision blueprint. Don't change code yet.
     <section id="dashboard" class="section section--chapter">
       <p class="chapter__label">Chapter 02</p>
       <h2>Dashboard playbook</h2>
+      <p>Chapter 01 tells you how to direct an agent. This chapter tells you what a dashboard actually needs.</p>
       <p>A dashboard is not a page with charts. It is a control room: someone must see the state of things, change them safely, and know the change stuck.</p>
       <p>Every dashboard screen needs eight things:</p>
       <ol class="numbered">
@@ -330,8 +331,8 @@ Don't write code yet.</code></pre></div>
         <summary><span class="item__n">03</span><span class="item__title">Separate Save from Publish</span><span class="item__toggle" aria-hidden="true"></span></summary>
         <div class="item__body">
           <p>Decide explicitly whether an edit goes live immediately or needs a publish step. For a content dashboard, automatic private saving plus an explicit Publish action is usually safer.</p>
-          <div class="callout callout--plain"><p>A reasoned pushback from a real build: “Publish gating is worth it; a separate Save button is not. Save prevents data loss, which is the bigger risk. Publish should be explicit.” The beginner accepted it in four words: “skip Save, add Publish site.”</p></div>
-          <p><strong>Lesson.</strong> Describe the outcome you want — “fail proof” — and let the agent propose where the gate belongs.</p>
+          <div class="callout callout--plain"><p>A reasoned pushback worth copying: “Publish gating is worth it; a separate Save button is not. Save prevents data loss, which is the bigger risk. Publish should be explicit.” The whole decision fits in one line: “skip Save, add Publish site.”</p></div>
+          <p><strong>Lesson.</strong> Describe the outcome you want — “no lost edits, no accidental publish” — and let the agent propose where the gate belongs.</p>
           <p>Give the publish button real states, such as <code>idle / starting / polling / published / failed</code>, and paint every transition on the button itself. The transition table is the guard: a double-click must not start two deploys. Cancel timers on every exit path, and give up after a few failed polls instead of polling forever.</p>
         </div>
       </details>
@@ -416,34 +417,10 @@ Delivery: Show me locally first. Don't deploy.</code></pre></div>
       </details>
     </section>
 
-    <section id="stories" class="group" aria-labelledby="storiesTitle">
-      <div class="group__head"><h3 id="storiesTitle">War stories</h3><span class="group__count">5 failures</span></div>
-      <p class="group__intro">Five short failures that teach more than any rule.</p>
-      <details class="item story searchable" data-search="saved nothing changed file string upload route shadow two bugs">
-        <summary><span class="item__n">A</span><span class="item__title">“It says saved, but nothing changed”</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>Two unrelated bugs hid behind one sentence. The form turned an uploaded file into the string <code>"{}"</code>, so text fields saved and the image did not — the request returned 200 and the interface said “saved”. Separately, the upload route was shadowed by a catch-all, so drag-and-drop had never worked.</p><p class="why"><strong>Lesson.</strong> A 200 response and a toast are not proof. Read the data back. When the first fix changes nothing, look for a second cause.</p></div>
-      </details>
-      <details class="item story searchable" data-search="login page html 200 deployed api helper static host">
-        <summary><span class="item__n">B</span><span class="item__title">“The settings screen still shows the login page”</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>The static host answered a missing API path with the homepage and a 200. The client helper treated that HTML as data, decided the user was not logged in, and showed login — only on the deployed site, which nobody had tested by hand.</p><p class="why"><strong>Lesson.</strong> Verify through the same surface the user uses. “The API works” is not the same claim as “the dashboard works.”</p></div>
-      </details>
-      <details class="item story searchable" data-search="nothing happens publish cached script delivered">
-        <summary><span class="item__n">C</span><span class="item__title">“Nothing happens” when pressing Publish</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>The fix was correct on the server, but the browser kept serving a cached old script, so the same error kept appearing. Cache-busting was a separate fix.</p><p class="why"><strong>Lesson.</strong> When a fix appears not to work, check that it was delivered before rewriting it.</p></div>
-      </details>
-      <details class="item story searchable" data-search="order sort build two layers trace path">
-        <summary><span class="item__n">D</span><span class="item__title">“I changed the order, but it didn't stick”</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>Again two causes: the build ignored the column the buttons were writing, and nothing rebuilt the public data after an edit. The second looked exactly like the first.</p><p class="why"><strong>Lesson.</strong> One symptom, two layers. Trace the whole path: button → write → storage → build → screen.</p></div>
-      </details>
-      <details class="item story searchable" data-search="phone 390 clipped menu off screen reachable">
-        <summary><span class="item__n">E</span><span class="item__title">“Check the settings on a phone”</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>Four menu items were off-screen at 390px, including the account settings. Nothing indicated there was more to scroll to.</p><p class="why"><strong>Lesson.</strong> “Every action reachable at 390px” belongs in your acceptance criteria.</p></div>
-      </details>
-    </section>
-
     <section id="techniques" class="section section--chapter">
       <p class="chapter__label">Chapter 03</p>
       <h2>Technique toolkit</h2>
+      <p>Chapters 01 and 02 cover the habits and the dashboard rules. This chapter gives you the reusable moves behind them.</p>
       <p>Thirty-two methods for getting better work out of an agent. The first eight are enough for most people. The rest are there when something goes wrong or the work gets serious.</p>
       <div class="filters" role="group" aria-label="Filter techniques by level">
         <button class="chip level-chip is-active" type="button" data-level="all" aria-pressed="true">All levels</button>
@@ -457,7 +434,7 @@ Delivery: Show me locally first. Don't deploy.</code></pre></div>
       <h3>Start with these eight</h3>
       <details class="item technique searchable" data-level="beginner" data-search="five slot goal context constraints check delivery starter prompt">
         <summary><span class="item__n">01</span><span class="item__title">The five-slot prompt</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>Goal, Context, Constraints, Check, Delivery. If one slot is missing, the agent fills it with a guess. <a href="#start">See the template at the top</a>.</p></div>
+        <div class="item__body"><p>Goal, Context, Constraints, Check, Delivery. If one slot is missing, the agent fills it with a guess. <a href="#starterPrompt">See the template at the top</a>.</p></div>
       </details>
       <details class="item technique searchable" data-level="beginner" data-search="colleague test clarity ambiguous instruct stranger">
         <summary><span class="item__n">02</span><span class="item__title">The colleague test</span><span class="item__toggle" aria-hidden="true"></span></summary>
@@ -495,7 +472,7 @@ own words. Do not make any changes yet.</code></pre></div>
       <h3>Control the work</h3>
       <details class="item technique searchable" data-level="intermediate" data-search="long context top question end documents quotes grounding">
         <summary><span class="item__n">09</span><span class="item__title">Long context at the top, question at the end</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>With large inputs, put the documents first and the query last. Structure each document with tags and a source label. This ordering measurably improves answers on multi-document tasks.</p></div>
+        <div class="item__body"><p>With large inputs, put the documents first and the question last. Structure each document with tags and a source label. This ordering often improves answers on multi-document tasks.</p></div>
       </details>
       <details class="item technique searchable" data-level="intermediate" data-search="quote grounding evidence before answer citations">
         <summary><span class="item__n">10</span><span class="item__title">Ground it in quotes first</span><span class="item__toggle" aria-hidden="true"></span></summary>
@@ -515,7 +492,7 @@ own words. Do not make any changes yet.</code></pre></div>
       </details>
       <details class="item technique searchable" data-level="intermediate" data-search="pushback disagree challenge better option colleague">
         <summary><span class="item__n">14</span><span class="item__title">Invite pushback</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>“Push back if your option is better?” The best result in the original playbook came from exactly this: a request for two buttons became an argument for one, and the narrower answer was right.</p></div>
+        <div class="item__body"><p>“Push back if your option is better?” A request for two buttons once drew an argument for one, and the narrower answer was right. That is the payoff of asking.</p></div>
       </details>
       <details class="item technique searchable" data-level="intermediate" data-search="pre mortem what would break risk failure mode">
         <summary><span class="item__n">15</span><span class="item__title">Run a pre-mortem</span><span class="item__toggle" aria-hidden="true"></span></summary>
@@ -545,7 +522,7 @@ own words. Do not make any changes yet.</code></pre></div>
       <h3>Think in systems</h3>
       <details class="item technique searchable" data-level="advanced" data-search="tests first tdd red green acceptance before code">
         <summary><span class="item__n">21</span><span class="item__title">Write the test before the feature</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>Ask for a failing test that describes the behaviour you want, then the implementation that makes it pass. For dashboards, the test should use real inputs and real data, not a stub.</p></div>
+        <div class="item__body"><p>Ask for a failing test that describes the behaviour you want, then the implementation that makes it pass. For a save form, the test adds a row, reloads, and asserts the row is still there. Use real inputs and real data, not a stub.</p></div>
       </details>
       <details class="item technique searchable" data-level="advanced" data-search="single source truth fields tokens copy schema list">
         <summary><span class="item__n">22</span><span class="item__title">One list, many consumers</span><span class="item__toggle" aria-hidden="true"></span></summary>
@@ -565,7 +542,7 @@ own words. Do not make any changes yet.</code></pre></div>
       </details>
       <details class="item technique searchable" data-level="advanced" data-search="structured outputs json schema types enum validation">
         <summary><span class="item__n">26</span><span class="item__title">Ask for structured output</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>When output feeds another tool, specify a schema: field names, types, allowed values, and what to do when information is missing. Free-form prose is for people; structured data is for programs.</p></div>
+        <div class="item__body"><p>When output feeds another tool, specify a schema: field names, types, allowed values, and what to do when information is missing — for example <code>{status: "ok" | "error", changedRows: number, message: string}</code>. Free-form prose is for people; structured data is for programs.</p></div>
       </details>
       <details class="item technique searchable" data-level="advanced" data-search="version prompts pin model snapshot evals regression rollback">
         <summary><span class="item__n">27</span><span class="item__title">Version prompts like code</span><span class="item__toggle" aria-hidden="true"></span></summary>
@@ -581,11 +558,11 @@ own words. Do not make any changes yet.</code></pre></div>
       </details>
       <details class="item technique searchable" data-level="advanced" data-search="effort thinking overprompting reasoning model calibrate brevity">
         <summary><span class="item__n">30</span><span class="item__title">Calibrate effort, do not over-prompt</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>Modern reasoning models already plan and self-check. Piling on “think step by step”, “be extremely thorough” and “verify everything” can add latency and over-verification. Adjust the model's effort setting, or ask for brevity explicitly, instead of writing paragraphs of meta-instructions.</p></div>
+        <div class="item__body"><p>Many current models already plan and self-check. Piling on “think step by step”, “be extremely thorough” and “verify everything” can add latency and over-verification. Adjust the model's effort setting, or ask for brevity explicitly, instead of writing paragraphs of meta-instructions.</p></div>
       </details>
-      <details class="item technique searchable" data-level="advanced" data-search="security validation secrets path containmentpermissions input trust">
+      <details class="item technique searchable" data-level="advanced" data-search="security validation secrets path containment permissions input trust">
         <summary><span class="item__n">31</span><span class="item__title">Put security in the brief</span><span class="item__toggle" aria-hidden="true"></span></summary>
-        <div class="item__body"><p>Ask for input validation, no secrets in client code, containment checks on file paths, and authorisation on every write. Security is an acceptance criterion, not a later audit.</p></div>
+        <div class="item__body"><p>Ask for input validation, no secrets in client code, authorisation on every write, and containment checks — for example, a resolved upload path must stay inside the upload directory. Security is an acceptance criterion, not a later audit.</p></div>
       </details>
       <details class="item technique searchable" data-level="advanced" data-search="accessibility performance budget 390px contrast reduced motion acceptance criteria">
         <summary><span class="item__n">32</span><span class="item__title">Make quality measurable up front</span><span class="item__toggle" aria-hidden="true"></span></summary>
@@ -596,7 +573,8 @@ own words. Do not make any changes yet.</code></pre></div>
     <section id="library" class="section section--chapter">
       <p class="chapter__label">Chapter 04</p>
       <h2>Prompt library</h2>
-      <p>Fourteen prompts, filterable by job. Choose a category, then copy what you need and change the angle brackets.</p>
+      <p>The toolkit explains each move. This chapter gives you the exact words to paste.</p>
+      <p>Fourteen prompts, filterable by job. Choose a category, copy what you need, and change the angle brackets to fit your task.</p>
       <div class="filters" role="group" aria-label="Filter prompts by category">
         <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All prompts</button>
         <button class="chip" type="button" data-filter="planning" aria-pressed="false">Planning</button>
@@ -709,7 +687,7 @@ score out of 10 for each with evidence, and fix anything below
     <section id="composer" class="section section--chapter">
       <p class="chapter__label">Chapter 05</p>
       <h2>Practice lab</h2>
-      <p>Two small tools. The first builds a structured prompt from your answers. The second checks whether the ideas have stuck.</p>
+      <p>You have read the moves and the prompts. Now use them: the first tool builds a structured prompt from your answers, the second checks whether the ideas have stuck.</p>
 
       <h3>Prompt composer</h3>
       <p>Fill the slots. The composer writes a tagged prompt you can copy straight into an agent.</p>
@@ -797,7 +775,7 @@ score out of 10 for each with evidence, and fix anything below
         <li><a href="https://platform.openai.com/docs/guides/prompt-engineering" target="_blank" rel="noopener noreferrer">OpenAI — Prompt engineering guide</a><span>Message roles, few-shot examples, context, structured output, and advice for coding and front-end work.</span></li>
         <li><a href="https://learnprompting.org/docs/introduction" target="_blank" rel="noopener noreferrer">Learn Prompting — free introductory course</a><span>Written for non-technical readers, with beginner through advanced modules and an open-source bibliography.</span></li>
         <li><a href="https://github.com/dair-ai/Prompt-Engineering-Guide" target="_blank" rel="noopener noreferrer">Prompt Engineering Guide — repository</a><span>A broad, community-maintained collection of techniques, papers and examples.</span></li>
-        <li><a href="https://arxiv.org/abs/2406.06608" target="_blank" rel="noopener noreferrer">The Prompt Report — systematic survey</a><span>A 76-page survey of over 1,500 papers covering 200-plus prompting techniques. Read selectively.</span></li>
+        <li><a href="https://arxiv.org/abs/2406.06608" target="_blank" rel="noopener noreferrer">The Prompt Report — systematic survey</a><span>A survey of over 1,500 papers cataloguing 200-plus prompting techniques. Read selectively.</span></li>
       </ul>
 
       <h3>Learn by doing</h3>
@@ -813,10 +791,10 @@ score out of 10 for each with evidence, and fix anything below
         <li><a href="https://dspy.ai/" target="_blank" rel="noopener noreferrer">DSPy</a><span>Define typed tasks and let an optimizer tune instructions and examples against a metric. “Program, don't prompt.”</span></li>
         <li><a href="https://docs.promptfoo.dev/" target="_blank" rel="noopener noreferrer">Promptfoo</a><span>Config-driven evaluation and red-teaming for LLM apps; useful as a CI gate.</span></li>
         <li><a href="https://github.com/openai/evals" target="_blank" rel="noopener noreferrer">openai/evals</a><span>Open-source evaluation framework for repeatable scoring.</span></li>
-        <li><a href="https://langfuse.com/" target="_blank" rel="noopener noreferrer">Langfuse</a><span>Open-source prompt management, versioning, datasets and tracing.</span></li>
+        <li><a href="https://langfuse.com/" target="_blank" rel="noopener noreferrer">Langfuse</a><span>Prompt management, versioning, datasets and tracing. Check the current licence and hosting options.</span></li>
       </ul>
 
-      <p class="muted">The tooling landscape consolidated quickly in 2026. Industry reporting describes ClickHouse acquiring Langfuse, OpenAI acquiring Promptfoo, and several other acquisitions; check current ownership and availability before committing to a vendor. <a href="https://pydantic.dev/articles/best-ai-agent-optimization-platforms-2026" target="_blank" rel="noopener noreferrer">Read the 2026 platform overview</a> for one view of that shift.</p>
+      <p class="muted">Tool ownership, pricing and features change quickly. Before committing to a vendor, check who owns it today and whether it is still available. <a href="https://pydantic.dev/articles/best-ai-agent-optimization-platforms-2026" target="_blank" rel="noopener noreferrer">Read this 2026 platform overview</a> for one view of a fast-moving market.</p>
     </section>
 
     <section id="optimizers" class="section section--chapter">
@@ -851,7 +829,7 @@ score out of 10 for each with evidence, and fix anything below
     <section id="loop" class="section section--chapter">
       <p class="chapter__label">Chapter 07</p>
       <h2>The working loop</h2>
-      <p>Run this every time. Step eight happens only after step five has produced evidence.</p>
+      <p>Everything above collapses into one routine. Run it every time: step eight, Ship, happens only after step five, Check, has produced evidence.</p>
       <ol class="loop">
         <li><span>01</span><strong>Explore</strong><p>Ask questions. “Don't change anything yet.”</p></li>
         <li><span>02</span><strong>Define</strong><p>Data model and blueprint before code.</p></li>
@@ -895,7 +873,7 @@ score out of 10 for each with evidence, and fix anything below
       <div class="summary__head">
         <div>
           <h2>One-screen cheat sheet</h2>
-          <p class="muted">The whole manual in thirteen lines. Print it, pin it, ignore the rest.</p>
+          <p class="muted">The whole manual in fifteen lines. Print it, pin it, ignore the rest.</p>
         </div>
         <button id="printBtn" class="button button--ghost" type="button">Print this page</button>
       </div>
